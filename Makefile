@@ -19,3 +19,5 @@ github:
 	cp nice-style.css style.css
 	git add style.css
 	git commit -m 'sync ocamldoc' -a
+	git push
+	git checkout master
