@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Conduit_resolver_mirage.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
+<link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
+<link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_resolver_mirage.Make</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Conduit_resolver_mirage.html" title="Conduit_resolver_mirage">Up</a>
+&nbsp;</div>
+<h1>Functor <a href="type_Conduit_resolver_mirage.Make.html">Conduit_resolver_mirage.Make</a></h1>
+
+<pre><span class="keyword">module</span> Make: <div class="sig_block"><code class="code">functor (</code><code class="code">DNS</code><code class="code"> : </code><code class="type">Dns_resolver_mirage.S</code><code class="code">) -&gt; </code><code class="code">sig</code> <a href="Conduit_resolver_mirage.Make.html">..</a> <code class="code">end</code></div></pre><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%">
+<code>DNS</code></td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Dns_resolver_mirage.S</code>
+</table>
+</td>
+</tr>
+</table>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALdefault_ns"><span class="keyword">val</span> default_ns</span> : <code class="type">Ipaddr.V4.t</code></pre>
+<pre><span id="VALsystem"><span class="keyword">val</span> system</span> : <code class="type">?ns:Ipaddr.V4.t -> ?dns_port:int -> DNS.stack -> Conduit_resolver_lwt.t</code></pre></body></html>

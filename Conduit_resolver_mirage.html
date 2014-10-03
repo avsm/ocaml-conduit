@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Conduit_mirage.html">
+<link rel="next" href="Conduit_lwt_unix.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
+<link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
+<link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_resolver_mirage</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Conduit_mirage.html" title="Conduit_mirage">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Conduit_lwt_unix.html" title="Conduit_lwt_unix">Next</a>
+</div>
+<h1>Module <a href="type_Conduit_resolver_mirage.html">Conduit_resolver_mirage</a></h1>
+
+<pre><span class="keyword">module</span> Conduit_resolver_mirage: <code class="code">sig</code> <a href="Conduit_resolver_mirage.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<code class="code">static hosts</code> constructs a resolver that looks up any resolution
+    requests from the static <code class="code">hosts</code> hashtable instead of using the
+    system resolver.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, port:int -> <a href="Conduit.html#TYPEendp">Conduit.endp</a>) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre>
+<pre><span id="VALlocalhost"><span class="keyword">val</span> localhost</span> : <code class="type">Conduit_resolver_lwt.t</code></pre><div class="info ">
+<code class="code">localhost</code> is a static resolver that has a single entry that
+    maps <code class="code">localhost</code> to <code class="code">127.0.0.1</code>, and fails on all other hostnames.<br>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Conduit_resolver_mirage.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">DNS</code><code class="code"> : </code><code class="type">Dns_resolver_mirage.S</code><code class="code">) -&gt; </code><code class="code">sig</code> <a href="Conduit_resolver_mirage.Make.html">..</a> <code class="code">end</code></div></pre></body></html>

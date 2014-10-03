@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Conduit_lwt_unix_net.Sockaddr_server.html">
+<link rel="Up" href="Conduit_lwt_unix_net.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
+<link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
+<link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_lwt_unix_net.Sockaddr_client</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Conduit_lwt_unix_net.html" title="Conduit_lwt_unix_net">Up</a>
+&nbsp;<a class="post" href="Conduit_lwt_unix_net.Sockaddr_server.html" title="Conduit_lwt_unix_net.Sockaddr_server">Next</a>
+</div>
+<h1>Module <a href="type_Conduit_lwt_unix_net.Sockaddr_client.html">Conduit_lwt_unix_net.Sockaddr_client</a></h1>
+
+<pre><span class="keyword">module</span> Sockaddr_client: <code class="code">sig</code> <a href="Conduit_lwt_unix_net.Sockaddr_client.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="VALconnect"><span class="keyword">val</span> connect</span> : <code class="type">?src:Lwt_unix.sockaddr -><br>       Lwt_unix.sockaddr -><br>       (Lwt_unix.file_descr * Lwt_io.input Lwt_io.channel *<br>        Lwt_io.output Lwt_io.channel)<br>       Lwt.t</code></pre>
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type">Lwt_io.input Lwt_io.channel * Lwt_io.output Lwt_io.channel -> unit Lwt.t</code></pre></body></html>
