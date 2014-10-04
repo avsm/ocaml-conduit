@@ -31,22 +31,95 @@
   and  type 'a io = 'a Lwt.t</code></pre><hr width="100%">
 
 <pre><span id="TYPEio"><span class="keyword">type</span> <code class="type">+'a</code> io</span> </pre>
+<div class="info ">
+Abstract type of the cooperative threading library used, normally
+      defined via the <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> module type<br>
+</div>
 
 
 <pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+State handle for a running resolver<br>
+</div>
 
 
 <pre><span id="TYPEsvc"><span class="keyword">type</span> <code class="type"></code>svc</span> </pre>
+<div class="info ">
+Abstract type for a service entry, which maps a URI scheme into
+      a protocol handler and TCP port<br>
+</div>
 
 
 <pre><span id="TYPErewrite_fn"><span class="keyword">type</span> <code class="type"></code>rewrite_fn</span> = <code class="type"><a href="Conduit.RESOLVER.html#TYPEsvc">svc</a> -> Uri.t -> <a href="Conduit.html#TYPEendp">Conduit.endp</a> <a href="Conduit.RESOLVER.html#TYPEio">io</a></code> </pre>
+<div class="info ">
+A rewrite function resolves a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a> and a URI into
+      a concrete endpoint.<br>
+</div>
 
 
 <pre><span id="TYPEservice_fn"><span class="keyword">type</span> <code class="type"></code>service_fn</span> = <code class="type">string -> <a href="Conduit.RESOLVER.html#TYPEsvc">svc</a> option <a href="Conduit.RESOLVER.html#TYPEio">io</a></code> </pre>
+<div class="info ">
+A service function maps the string (such as <code class="code">http</code> or <code class="code">ftp</code>) from
+      a URI scheme into a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a> description that includes
+      enough metadata about the service to subsequently <a href="Conduit.RESOLVER.html#TYPErewrite_fn">resolve</a>
+      it into an <a href="Conduit.html#TYPEendp">endpoint</a>.<br>
+</div>
 
 
-<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?service:<a href="Conduit.RESOLVER.html#TYPEservice_fn">service_fn</a> -><br>       ?rewrites:(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list -><br>       unit -> <a href="Conduit.RESOLVER.html#TYPEt">t</a></code></pre>
-<pre><span id="VALadd_rewrite"><span class="keyword">val</span> add_rewrite</span> : <code class="type">host:string -> f:<a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a> -> <a href="Conduit.RESOLVER.html#TYPEt">t</a> -> unit</code></pre>
-<pre><span id="VALresolve_uri"><span class="keyword">val</span> resolve_uri</span> : <code class="type">?rewrites:(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list -><br>       uri:Uri.t -> <a href="Conduit.RESOLVER.html#TYPEt">t</a> -> <a href="Conduit.html#TYPEendp">Conduit.endp</a> <a href="Conduit.RESOLVER.html#TYPEio">io</a></code></pre>
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?service:<a href="Conduit.RESOLVER.html#TYPEservice_fn">service_fn</a> -><br>       ?rewrites:(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list -><br>       unit -> <a href="Conduit.RESOLVER.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">init ?service ?rewrites</code> will initialize the resolver and return
+      a state handler.  The <a href="Conduit.RESOLVER.html#TYPEservice_fn">service</a> argument should
+      contain the system-specific resolution mechanism for URI schemas.
+<p>
+
+      The <code class="code">rewrites</code> argument can optionally override a subset of the
+      URI domain name with the given <a href="Conduit.RESOLVER.html#TYPErewrite_fn"><code class="code">Conduit.RESOLVER.rewrite_fn</code></a> to permit custom
+      resolution rules.  For example, a rewrite rule for ".xen" would
+      let the rewrite function resolve hostnames such as "foo.xen"
+      into a shared memory channel for the "foo" virtual machine.<br>
+</div>
+
+<pre><span id="VALadd_rewrite"><span class="keyword">val</span> add_rewrite</span> : <code class="type">host:string -> f:<a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a> -> <a href="Conduit.RESOLVER.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<code class="code">add_rewrite ~host f t</code> will add to the <code class="code">t</code> resolver the <code class="code">f</code> rewrite rule
+      for all the domain names that shortest-prefix match <code class="code">host</code><br>
+</div>
+
+<pre><span id="VALresolve_uri"><span class="keyword">val</span> resolve_uri</span> : <code class="type">?rewrites:(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list -><br>       uri:Uri.t -> <a href="Conduit.RESOLVER.html#TYPEt">t</a> -> <a href="Conduit.html#TYPEendp">Conduit.endp</a> <a href="Conduit.RESOLVER.html#TYPEio">io</a></code></pre><div class="info ">
+<code class="code">resolve_uri ?rewrites ~uri t</code> will use <code class="code">t</code> to resolve the
+      <code class="code">uri</code> into a concrete endpoint.  Any <code class="code">rewrites</code> that are passed
+      in will be overlayed on the existing rules within the <code class="code">t</code>
+      resolver, but not otherwise modify it.<br>
+</div>
+
 <pre><span id="VALt_of_sexp"><span class="keyword">val</span> t_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit.RESOLVER.html#TYPEt">t</a></code></pre>
-<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre></body></html>
+<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><br>
+Abstract type for a service entry, which maps a URI scheme into
+      a protocol handler and TCP port<br>
+<br>
+A rewrite function resolves a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a> and a URI into
+      a concrete endpoint.<br>
+<br>
+A service function maps the string (such as <code class="code">http</code> or <code class="code">ftp</code>) from
+      a URI scheme into a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a> description that includes
+      enough metadata about the service to subsequently <a href="Conduit.RESOLVER.html#TYPErewrite_fn">resolve</a>
+      it into an <a href="Conduit.html#TYPEendp">endpoint</a>.<br>
+<br>
+<code class="code">init ?service ?rewrites</code> will initialize the resolver and return
+      a state handler.  The <a href="Conduit.RESOLVER.html#TYPEservice_fn">service</a> argument should
+      contain the system-specific resolution mechanism for URI schemas.
+<p>
+
+      The <code class="code">rewrites</code> argument can optionally override a subset of the
+      URI domain name with the given <a href="Conduit.RESOLVER.html#TYPErewrite_fn"><code class="code">Conduit.RESOLVER.rewrite_fn</code></a> to permit custom
+      resolution rules.  For example, a rewrite rule for ".xen" would
+      let the rewrite function resolve hostnames such as "foo.xen"
+      into a shared memory channel for the "foo" virtual machine.<br>
+<br>
+<code class="code">add_rewrite ~host f t</code> will add to the <code class="code">t</code> resolver the <code class="code">f</code> rewrite rule
+      for all the domain names that shortest-prefix match <code class="code">host</code><br>
+<br>
+<code class="code">resolve_uri ?rewrites ~uri t</code> will use <code class="code">t</code> to resolve the
+      <code class="code">uri</code> into a concrete endpoint.  Any <code class="code">rewrites</code> that are passed
+      in will be overlayed on the existing rules within the <code class="code">t</code>
+      resolver, but not otherwise modify it.<br>
+</body></html>

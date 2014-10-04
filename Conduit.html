@@ -44,7 +44,7 @@ Interface for establishing reliable stream-oriented connections.
     <h2 id="transport">Connection Establishment</h2> 
 <p>
 
-    Connections are created by identifying remote nodes by an <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> address.
+    Connections are created by identifying remote nodes using an <a href="Conduit.html#TYPEendp">endp</a> value.
     To ensure portability, the <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> values are translated into concrete
     connections by separate modules that target <code class="code">Lwt_unix</code>, <code class="code">Async</code> and <code class="code">Mirage</code>.
     This lets those backends use the appropriate local technique for creating the
@@ -53,8 +53,6 @@ Interface for establishing reliable stream-oriented connections.
 <p>
 
     The modules dealing with connection establishment are:
-<p>
-
     <br>
 <table class="indextable">
 <tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
@@ -84,8 +82,6 @@ Functorial connection establishment interface that is compatible with
 
     All of the name resolvers conform to the <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> module type.
     The OS-specific implementations of this interface are:
-<p>
-
     <br>
 <table class="indextable">
 <tr><td class="module"><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a></td><td></td></tr>
@@ -108,12 +104,63 @@ Use the Unix system name resolver via <code class="code">getaddrinfo</code> and
 <pre><span id="TYPEendp"><span class="keyword">type</span> <code class="type"></code>endp</span> = <code class="type">[ `TCP of Ipaddr.t * int<br>       | `TLS of string * <a href="Conduit.html#TYPEendp">endp</a><br>       | `Unix_domain_socket of string<br>       | `Unknown of string<br>       | `Vchan of int * string ]</code> </pre>
 <div class="info ">
 End points that can potentially be connected to.
-    These are typically returned by a call to <code class="code">Conduit_resolver</code>.<br>
+    These are typically returned by a call to a resolver.<br>
 </div>
 
 
-<pre><span class="keyword">module type</span> <a href="Conduit.IO.html">IO</a> = <code class="code">sig</code> <a href="Conduit.IO.html">..</a> <code class="code">end</code></pre>
-<pre><span class="keyword">module type</span> <a href="Conduit.RESOLVER.html">RESOLVER</a> = <code class="code">sig</code> <a href="Conduit.RESOLVER.html">..</a> <code class="code">end</code></pre>
+<pre><span class="keyword">module type</span> <a href="Conduit.IO.html">IO</a> = <code class="code">sig</code> <a href="Conduit.IO.html">..</a> <code class="code">end</code></pre><div class="info">
+Module type for cooperative threading that can be satisfied by
+    Lwt or Async
+</div>
+
+<pre><span class="keyword">module type</span> <a href="Conduit.RESOLVER.html">RESOLVER</a> = <code class="code">sig</code> <a href="Conduit.RESOLVER.html">..</a> <code class="code">end</code></pre><div class="info">
+Module type for a resolver that can map URIs to
+    concrete <a href="Conduit.html#TYPEendp">endpoints</a> that stream connections can be
+    established with.
+</div>
+
 <pre><span id="VALendp_of_sexp"><span class="keyword">val</span> endp_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit.html#TYPEendp">endp</a></code></pre>
 <pre><span id="VAL__endp_of_sexp__"><span class="keyword">val</span> __endp_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit.html#TYPEendp">endp</a></code></pre>
-<pre><span id="VALsexp_of_endp"><span class="keyword">val</span> sexp_of_endp</span> : <code class="type"><a href="Conduit.html#TYPEendp">endp</a> -> Sexplib.Sexp.t</code></pre></body></html>
+<pre><span id="VALsexp_of_endp"><span class="keyword">val</span> sexp_of_endp</span> : <code class="type"><a href="Conduit.html#TYPEendp">endp</a> -> Sexplib.Sexp.t</code></pre><br>
+Module type for cooperative threading that can be satisfied by
+    Lwt or Async<br>
+<br>
+Module type for a resolver that can map URIs to
+    concrete <a href="Conduit.html#TYPEendp">endpoints</a> that stream connections can be
+    established with.<br>
+<br>
+Abstract type of the cooperative threading library used, normally
+      defined via the <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> module type<br>
+<br>
+State handle for a running resolver<br>
+<br>
+Abstract type for a service entry, which maps a URI scheme into
+      a protocol handler and TCP port<br>
+<br>
+A rewrite function resolves a service and a URI into
+      a concrete endpoint.<br>
+<br>
+A service function maps the string (such as <code class="code">http</code> or <code class="code">ftp</code>) from
+      a URI scheme into a service description that includes
+      enough metadata about the service to subsequently resolve
+      it into an <a href="Conduit.html#TYPEendp">endpoint</a>.<br>
+<br>
+<code class="code">init ?service ?rewrites</code> will initialize the resolver and return
+      a state handler.  The service argument should
+      contain the system-specific resolution mechanism for URI schemas.
+<p>
+
+      The <code class="code">rewrites</code> argument can optionally override a subset of the
+      URI domain name with the given <code class="code">rewrite_fn</code> to permit custom
+      resolution rules.  For example, a rewrite rule for ".xen" would
+      let the rewrite function resolve hostnames such as "foo.xen"
+      into a shared memory channel for the "foo" virtual machine.<br>
+<br>
+<code class="code">add_rewrite ~host f t</code> will add to the <code class="code">t</code> resolver the <code class="code">f</code> rewrite rule
+      for all the domain names that shortest-prefix match <code class="code">host</code><br>
+<br>
+<code class="code">resolve_uri ?rewrites ~uri t</code> will use <code class="code">t</code> to resolve the
+      <code class="code">uri</code> into a concrete endpoint.  Any <code class="code">rewrites</code> that are passed
+      in will be overlayed on the existing rules within the <code class="code">t</code>
+      resolver, but not otherwise modify it.<br>
+</body></html>

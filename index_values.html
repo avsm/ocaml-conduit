@@ -47,7 +47,11 @@
 <tr><td><a href="Conduit_lwt_unix_net_ssl.Server.html#VALaccept">accept</a> [<a href="Conduit_lwt_unix_net_ssl.Server.html">Conduit_lwt_unix_net_ssl.Server</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#VALadd_rewrite">add_rewrite</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">add_rewrite ~host f t</code> will add to the <code class="code">t</code> resolver the <code class="code">f</code> rewrite rule
+      for all the domain names that shortest-prefix match <code class="code">host</code>
+</div>
+</td></tr>
 <tr><td><a href="Conduit_async.html#VALaddr_of_sexp">addr_of_sexp</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>C</td></tr>
@@ -130,7 +134,11 @@ Use the configuration of the server to interpret how to handle a
 </td></tr>
 <tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#VALinit">init</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">init ?service ?rewrites</code> will initialize the resolver and return
+      a state handler.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_lwt_unix_net_ssl.Server.html#VALinit">init</a> [<a href="Conduit_lwt_unix_net_ssl.Server.html">Conduit_lwt_unix_net_ssl.Server</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix_net.Sockaddr_server.html#VALinit">init</a> [<a href="Conduit_lwt_unix_net.Sockaddr_server.html">Conduit_lwt_unix_net.Sockaddr_server</a>]</td>
@@ -170,7 +178,11 @@ Use the configuration of the server to interpret how to handle a
 </td></tr>
 <tr><td align="left"><br>R</td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#VALresolve_uri">resolve_uri</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">resolve_uri ?rewrites ~uri t</code> will use <code class="code">t</code> to resolve the
+      <code class="code">uri</code> into a concrete endpoint.
+</div>
+</td></tr>
 <tr><td><a href="Conduit.IO.html#VALreturn">return</a> [<a href="Conduit.IO.html">Conduit.IO</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>S</td></tr>

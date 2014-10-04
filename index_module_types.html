@@ -32,10 +32,19 @@ Module type of a Vchan endpoint
 </td></tr>
 <tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Conduit.IO.html">IO</a> [<a href="Conduit.html">Conduit</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Module type for cooperative threading that can be satisfied by
+    Lwt or Async
+</div>
+</td></tr>
 <tr><td align="left"><br>R</td></tr>
 <tr><td><a href="Conduit.RESOLVER.html">RESOLVER</a> [<a href="Conduit.html">Conduit</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Module type for a resolver that can map URIs to
+    concrete <a href="Conduit.html#TYPEendp">endpoints</a> that stream connections can be
+    established with.
+</div>
+</td></tr>
 <tr><td align="left"><br>S</td></tr>
 <tr><td><a href="Conduit_resolver_lwt.S.html">S</a> [<a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a>]</td>
 <td></td></tr>

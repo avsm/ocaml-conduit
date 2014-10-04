@@ -60,7 +60,11 @@ End points that can potentially be connected to.
 <tr><td><a href="Conduit_async.html#TYPEic">ic</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#TYPEio">io</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Abstract type of the cooperative threading library used, normally
+      defined via the <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> module type
+</div>
+</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEio">io</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEio">io</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
@@ -82,7 +86,11 @@ Type of the port name that identifies a unique connection at an endpoint
 </td></tr>
 <tr><td align="left"><br>R</td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+A rewrite function resolves a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a> and a URI into
+      a concrete endpoint.
+</div>
+</td></tr>
 <tr><td align="left"><br>S</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEserver">server</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
@@ -96,16 +104,29 @@ Configuration for listening on a server port.
 <tr><td><a href="Conduit_resolver.html#TYPEservice">service</a> [<a href="Conduit_resolver.html">Conduit_resolver</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#TYPEservice_fn">service_fn</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+A service function maps the string (such as <code class="code">http</code> or <code class="code">ftp</code>) from
+      a URI scheme into a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a> description that includes
+      enough metadata about the service to subsequently <a href="Conduit.RESOLVER.html#TYPErewrite_fn">resolve</a>
+      it into an <a href="Conduit.html#TYPEendp">endpoint</a>.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEstack">stack</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#TYPEsvc">svc</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Abstract type for a service entry, which maps a URI scheme into
+      a protocol handler and TCP port
+</div>
+</td></tr>
 <tr><td align="left"><br>T</td></tr>
 <tr><td><a href="Conduit_trie.html#TYPEt">t</a> [<a href="Conduit_trie.html">Conduit_trie</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#TYPEt">t</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td></td></tr>
+<td><div class="info">
+State handle for a running resolver
+</div>
+</td></tr>
 <tr><td><a href="Conduit.IO.html#TYPEt">t</a> [<a href="Conduit.IO.html">Conduit.IO</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html#TYPEt">t</a> [<a href="Conduit_resolver_mirage.Make.html">Conduit_resolver_mirage.Make</a>]</td>
