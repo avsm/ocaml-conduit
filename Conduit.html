@@ -30,7 +30,42 @@
 <h1>Module <a href="type_Conduit.html">Conduit</a></h1>
 
 <pre><span class="keyword">module</span> Conduit: <code class="code">sig</code> <a href="Conduit.html">..</a> <code class="code">end</code></pre><div class="info module top">
-The conduit API<br>
+Interface for establishing reliable stream-oriented connections.
+<p>
+
+    This library abstracts the concerns of establishing connections to
+    peers that may be running within the same host (e.g. in another
+    virtual machine) or on a remote host via TCP.  It consists of two
+    main components that are responsible for:
+<p>
+<ul>
+<li>Establishing a single connection to a remote peer that is identified
+      by an <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> address.</li>
+<li>Resolving URIs into a list of <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> addresses that can then be
+      connected to by the transport layer.</li>
+</ul>
+
+    To ensure portability, the <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> addresses are translated into
+    concrete connections by separate modules that target <code class="code">Lwt_unix</code>,
+    <code class="code">Async</code> and <code class="code">Mirage</code>.
+<p>
+
+    <br>
+<table class="indextable">
+<tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
+Use the configuration of the server to interpret how to handle a
+    particular endpoint from the resolver into a concrete
+    implementation of type <code class="code">client</code>
+</div>
+</td></tr>
+<tr><td class="module">Conduit_async</td><td></td></tr>
+<tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
+Functorial interface that is compatible with the Mirage
+    module types.
+</div>
+</td></tr>
+</table>
+<br>
 </div>
 <hr width="100%">
 

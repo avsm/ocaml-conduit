@@ -27,7 +27,11 @@
 </div>
 <h1>Functor <a href="type_Conduit_mirage.Make_flow.html">Conduit_mirage.Make_flow</a></h1>
 
-<pre><span class="keyword">module</span> Make_flow: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) -&gt; </code><code class="type">V1_LWT.FLOW</code><code class="type"> </code></div></div></pre><table border="0" cellpadding="3" width="100%">
+<pre><span class="keyword">module</span> Make_flow: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) -&gt; </code><code class="type">V1_LWT.FLOW</code><code class="type"> </code></div></div></pre><div class="info module top">
+Functor to construct a <code class="code">V1_LWT.FLOW</code> module that internally contains
+    all of the supported transport mechanisms, such as TCPv4 and Vchan.<br>
+</div>
+<table border="0" cellpadding="3" width="100%">
 <tr>
 <td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
 <td>

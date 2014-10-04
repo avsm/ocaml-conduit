@@ -54,7 +54,11 @@ Configuration for listening on a server port.<br>
 Module type of a Vchan endpoint
 </div>
 
-<pre><span class="keyword">module</span> <a href="Conduit_mirage.Make_flow.html">Make_flow</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) -&gt; </code><code class="type">V1_LWT.FLOW</code><code class="type"> </code></div></div></pre>
+<pre><span class="keyword">module</span> <a href="Conduit_mirage.Make_flow.html">Make_flow</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) -&gt; </code><code class="type">V1_LWT.FLOW</code><code class="type"> </code></div></div></pre><div class="info">
+Functor to construct a <code class="code">V1_LWT.FLOW</code> module that internally contains
+    all of the supported transport mechanisms, such as TCPv4 and Vchan.
+</div>
+
 <pre><span class="keyword">module type</span> <a href="Conduit_mirage.S.html">S</a> = <code class="code">sig</code> <a href="Conduit_mirage.S.html">..</a> <code class="code">end</code></pre>
 <pre><span class="keyword">module</span> <a href="Conduit_mirage.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.STACKV4</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) -&gt; </code><code class="type"><a href="Conduit_mirage.S.html">S</a></code><code class="type">  with type stack = S.t</code></div></div></pre>
 <pre><span id="VALvchan_port_of_sexp"><span class="keyword">val</span> vchan_port_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a></code></pre>
@@ -94,6 +98,9 @@ Type of the port name that identifies a unique connection at an endpoint<br>
 Close a Vchan. This deallocates the Vchan and attempts to free
       its resources. The other side is notified of the close, but can
       still read any data pending prior to the close.<br>
+<br>
+Functor to construct a <code class="code">V1_LWT.FLOW</code> module that internally contains
+    all of the supported transport mechanisms, such as TCPv4 and Vchan.<br>
 <br>
 Use the configuration of the server to interpret how to handle a
       particular endpoint from the resolver into a concrete
