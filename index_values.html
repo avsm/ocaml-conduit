@@ -88,7 +88,10 @@ Close a Vchan.
 <tr><td><a href="Conduit_lwt_unix.html#VALdefault_ctx">default_ctx</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html#VALdefault_ns">default_ns</a> [<a href="Conduit_resolver_mirage.Make.html">Conduit_resolver_mirage.Make</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Default resolver to use, which is <code class="code">8.8.8.8</code> (Google DNS).
+</div>
+</td></tr>
 <tr><td align="left"><br>E</td></tr>
 <tr><td><a href="Conduit_trie.html#VALempty">empty</a> [<a href="Conduit_trie.html">Conduit_trie</a>]</td>
 <td><div class="info">
@@ -229,7 +232,12 @@ Set of supported listening mechanisms that are supported by this module.
 <tr><td><a href="Conduit_mirage.html#VALsexp_of_vchan_port">sexp_of_vchan_port</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_resolver_mirage.html#VALstatic">static</a> [<a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">static hosts</code> constructs a resolver that looks up any resolution
+    requests from the static <code class="code">hosts</code> hashtable instead of using the
+    system resolver.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_resolver_lwt_unix.html#VALstatic">static</a> [<a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a>]</td>
 <td><div class="info">
 <code class="code">static hosts</code> constructs a resolver that looks up any resolution
@@ -238,7 +246,12 @@ Set of supported listening mechanisms that are supported by this module.
 </div>
 </td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html#VALsystem">system</a> [<a href="Conduit_resolver_mirage.Make.html">Conduit_resolver_mirage.Make</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">system ?ns ?dns_port stack</code> will return a resolver that uses
+      the stub resolver <code class="code">ns</code> on port <code class="code">dns_port</code> to resolve URIs via
+      the <code class="code">stack</code> network interface.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_resolver_lwt_unix.html#VALsystem">system</a> [<a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>T</td></tr>

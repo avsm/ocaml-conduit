@@ -72,9 +72,7 @@ Use the Unix system name resolver via <code class="code">getaddrinfo</code> and
 </td></tr>
 <tr><td><a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a> </td>
 <td><div class="info">
-<code class="code">static hosts</code> constructs a resolver that looks up any resolution
-    requests from the static <code class="code">hosts</code> hashtable instead of using the
-    system resolver.
+Functorial interface for resolving URIs to endpoints.
 </div>
 </td></tr>
 <tr><td><a href="Conduit_trie.html">Conduit_trie</a> </td>
@@ -93,7 +91,12 @@ IO module compatible with <a href="Conduit.IO.html"><code class="code">Conduit.I
 </td></tr>
 <tr><td align="left"><br>M</td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html">Make</a> [<a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Given a DNS resolver <a href="https://github.com/mirage/ocaml-dns">implementation</a>,
+    provide a <a href="Conduit_resolver_lwt.html"><code class="code">Conduit_resolver_lwt</code></a> that can perform DNS lookups to return
+    endpoints.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_resolver.Make.html">Make</a> [<a href="Conduit_resolver.html">Conduit_resolver</a>]</td>
 <td><div class="info">
 Functor to construct a concrete resolver using a <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a>

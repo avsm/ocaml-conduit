@@ -30,16 +30,24 @@
 <h1>Module <a href="type_Conduit_resolver_mirage.html">Conduit_resolver_mirage</a></h1>
 
 <pre><span class="keyword">module</span> Conduit_resolver_mirage: <code class="code">sig</code> <a href="Conduit_resolver_mirage.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Functorial interface for resolving URIs to endpoints.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, port:int -> <a href="Conduit.html#TYPEendp">Conduit.endp</a>) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre><div class="info ">
 <code class="code">static hosts</code> constructs a resolver that looks up any resolution
     requests from the static <code class="code">hosts</code> hashtable instead of using the
     system resolver.<br>
 </div>
-<hr width="100%">
 
-<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, port:int -> <a href="Conduit.html#TYPEendp">Conduit.endp</a>) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre>
 <pre><span id="VALlocalhost"><span class="keyword">val</span> localhost</span> : <code class="type">Conduit_resolver_lwt.t</code></pre><div class="info ">
 <code class="code">localhost</code> is a static resolver that has a single entry that
     maps <code class="code">localhost</code> to <code class="code">127.0.0.1</code>, and fails on all other hostnames.<br>
 </div>
 
-<pre><span class="keyword">module</span> <a href="Conduit_resolver_mirage.Make.html">Make</a> <code class="code">(</code><code class="code">DNS</code><code class="code"> : </code><code class="type">Dns_resolver_mirage.S</code><code class="code">) </code>: <code class="code">sig</code> <a href="Conduit_resolver_mirage.Make.html">..</a> <code class="code">end</code></pre></body></html>
+<pre><span class="keyword">module</span> <a href="Conduit_resolver_mirage.Make.html">Make</a> <code class="code">(</code><code class="code">DNS</code><code class="code"> : </code><code class="type">Dns_resolver_mirage.S</code><code class="code">) </code>: <code class="code">sig</code> <a href="Conduit_resolver_mirage.Make.html">..</a> <code class="code">end</code></pre><div class="info">
+Given a DNS resolver <a href="https://github.com/mirage/ocaml-dns">implementation</a>,
+    provide a <a href="Conduit_resolver_lwt.html"><code class="code">Conduit_resolver_lwt</code></a> that can perform DNS lookups to return
+    endpoints.
+</div>
+</body></html>
