@@ -15,6 +15,9 @@
  *
  *)
 
+(** Functorial interface to Conduit that is compatible with the Mirage
+    module types. *)
+
 IFDEF HAVE_VCHAN THEN
 type vchan_port = Vchan.Port.t with sexp
 ELSE
