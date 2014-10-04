@@ -21,15 +21,15 @@
 </head>
 <body>
 <h1></h1>
-Interface for establishing reliable stream-oriented connections.
-<p>
-
 The <a href="Conduit.html"><code class="code">Conduit</code></a> library abstracts the concerns of establishing connections to
 peers that may be running within the same host (e.g. in another virtual
-machine) or on a remote host via TCP.  It consists of one library that is
-responsible for establishing individual connections, and a
-name resolver that maps URIs to endpoints.
+machine) or on a remote host via TCP.  It consists of:
 <p>
+<ul>
+<li>The <a href="Conduit.html"><code class="code">Conduit</code></a> module with basic type definitions</li>
+<li>Modules for establishing individual connections</li>
+<li>Modules for name resolvers that maps URIs to endpoints</li>
+</ul>
 
 <h2 id="transport">Connection Establishment</h2> 
 <p>
