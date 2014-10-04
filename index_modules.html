@@ -33,9 +33,7 @@ Interface for establishing reliable stream-oriented connections.
 </td></tr>
 <tr><td><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a> </td>
 <td><div class="info">
-Use the configuration of the server to interpret how to handle a
-    particular endpoint from the resolver into a concrete
-    implementation of type <code class="code">client</code>
+Connection establishment using the <code class="code">Lwt_unix</code> library
 </div>
 </td></tr>
 <tr><td><a href="Conduit_lwt_unix_net.html">Conduit_lwt_unix_net</a> </td>
@@ -44,8 +42,8 @@ Use the configuration of the server to interpret how to handle a
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.html">Conduit_mirage</a> </td>
 <td><div class="info">
-Functorial interface that is compatible with the Mirage
-    module types.
+Functorial connection establishment interface that is compatible with
+    the Mirage libraries.
 </div>
 </td></tr>
 <tr><td><a href="Conduit_resolver.html">Conduit_resolver</a> </td>

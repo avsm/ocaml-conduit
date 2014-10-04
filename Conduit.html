@@ -40,7 +40,7 @@ Interface for establishing reliable stream-oriented connections.
     connections, and a name resolver that maps URIs to endpoints.
 <p>
 
-    <h1 id="transport">Connection Establishment</h1> 
+    <h2 id="transport">Connection Establishment</h2> 
 <p>
 
     Connections are created by identifying remote nodes by an <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> address.
@@ -57,30 +57,28 @@ Interface for establishing reliable stream-oriented connections.
     <br>
 <table class="indextable">
 <tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
-Use the configuration of the server to interpret how to handle a
-    particular endpoint from the resolver into a concrete
-    implementation of type <code class="code">client</code>
+Connection establishment using the <code class="code">Lwt_unix</code> library
 </div>
 </td></tr>
 <tr><td class="module">Conduit_async</td><td></td></tr>
 <tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
-Functorial interface that is compatible with the Mirage
-    module types.
+Functorial connection establishment interface that is compatible with
+    the Mirage libraries.
 </div>
 </td></tr>
 </table>
 
 <p>
 
-    <h1 id="1_NameResolution">Name Resolution</h1>
+    <h2 id="resolution">Name Resolution</h2>
 <p>
 
     This deals with resolving URIs into a list of <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> addresses that can
-    then be connected to by the <code class="code">transport</code> modules.  The name resolver
-    conforms to the <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> module type below.
+    then be connected to by the connection establishment modules.
 <p>
 
-    The OS-specific modules that handle name resolution are:
+    All of the name resolvers conform to the <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> module type.
+    The OS-specific implementations of this interface are:
 <p>
 
     <br>

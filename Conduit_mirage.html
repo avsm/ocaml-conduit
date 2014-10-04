@@ -28,10 +28,17 @@
 <h1>Module <a href="type_Conduit_mirage.html">Conduit_mirage</a></h1>
 
 <pre><span class="keyword">module</span> Conduit_mirage: <code class="code">sig</code> <a href="Conduit_mirage.html">..</a> <code class="code">end</code></pre><div class="info module top">
-Functorial interface that is compatible with the Mirage
-    module types.  Currently supports two transports: TCPv4 for remote
-    communications, and Vchan for inter-VM communication within a single
-    Xen host.<br>
+Functorial connection establishment interface that is compatible with
+    the Mirage libraries.
+<p>
+
+    Currently supports two transports: 
+<p>
+<ul>
+<li>TCPv4 for remote communications using the <a href="https://www.ietf.org/rfc/rfc793.txt">TCPv4</a> protocol</li>
+<li>Vchan for inter-VM communication within a single Xen host</li>
+</ul>
+<br>
 </div>
 <hr width="100%">
 
