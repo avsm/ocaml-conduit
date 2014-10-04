@@ -29,11 +29,20 @@
 </div>
 <h1>Module <a href="type_Conduit_resolver_lwt.html">Conduit_resolver_lwt</a></h1>
 
-<pre><span class="keyword">module</span> Conduit_resolver_lwt: <code class="code">sig</code> <a href="Conduit_resolver_lwt.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span class="keyword">module</span> Conduit_resolver_lwt: <code class="code">sig</code> <a href="Conduit_resolver_lwt.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Resolve URIs to endpoints using the <a href="http://ocsigen.org/lwt">Lwt</a> library<br>
+</div>
+<hr width="100%">
 
-<pre><span class="keyword">module</span> <a href="Conduit_resolver_lwt.IO.html">IO</a>: <code class="type"><a href="Conduit.IO.html">Conduit.IO</a></code><code class="type">  with type 'a t = 'a Lwt.t</code></pre>
+<pre><span class="keyword">module</span> <a href="Conduit_resolver_lwt.IO.html">IO</a>: <code class="type"><a href="Conduit.IO.html">Conduit.IO</a></code><code class="type">  with type 'a t = 'a Lwt.t</code></pre><div class="info">
+IO module compatible with <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> that uses Lwt
+</div>
+
 <pre><span class="keyword">module type</span> <a href="Conduit_resolver_lwt.S.html">S</a> = <code class="type"><a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a></code><code class="type">  
   with type svc = Conduit_resolver.service
-  and  type 'a io = 'a Lwt.t</code></pre>
+  and  type 'a io = 'a Lwt.t</code></pre><div class="info">
+Module type that specialises <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> to use Lwt threads
+</div>
+
 <pre><span class="keyword">include</span> <a href="Conduit_resolver_lwt.S.html">Conduit_resolver_lwt.S</a></pre>
 </body></html>

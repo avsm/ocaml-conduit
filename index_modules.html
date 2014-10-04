@@ -44,7 +44,10 @@ Connection establishment using the
 </div>
 </td></tr>
 <tr><td><a href="Conduit_lwt_unix_ssl.html">Conduit_lwt_unix_ssl</a> </td>
-<td></td></tr>
+<td><div class="info">
+TLS/SSL connections via <a href="http://www.openssl.org">OpenSSL</a> C bindings
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.html">Conduit_mirage</a> </td>
 <td><div class="info">
 Functorial connection establishment interface that is compatible with
@@ -52,9 +55,15 @@ Functorial connection establishment interface that is compatible with
 </div>
 </td></tr>
 <tr><td><a href="Conduit_resolver.html">Conduit_resolver</a> </td>
-<td></td></tr>
+<td><div class="info">
+Resolve URIs to endpoints
+</div>
+</td></tr>
 <tr><td><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a> </td>
-<td></td></tr>
+<td><div class="info">
+Resolve URIs to endpoints using the <a href="http://ocsigen.org/lwt">Lwt</a> library
+</div>
+</td></tr>
 <tr><td><a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a> </td>
 <td><div class="info">
 Use the Unix system name resolver via <code class="code">getaddrinfo</code> and
@@ -78,12 +87,19 @@ A Radix tree mapping strings to <code class="code">'a</code>.
 <td></td></tr>
 <tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Conduit_resolver_lwt.IO.html">IO</a> [<a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a>]</td>
-<td></td></tr>
+<td><div class="info">
+IO module compatible with <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> that uses Lwt
+</div>
+</td></tr>
 <tr><td align="left"><br>M</td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html">Make</a> [<a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_resolver.Make.html">Make</a> [<a href="Conduit_resolver.html">Conduit_resolver</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Functor to construct a concrete resolver using a <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a>
+    implementation, usually via either Lwt or Async
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.Make.html">Make</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.Make_flow.html">Make_flow</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>

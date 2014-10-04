@@ -29,7 +29,10 @@
 </div>
 <h1>Module <a href="type_Conduit_resolver.html">Conduit_resolver</a></h1>
 
-<pre><span class="keyword">module</span> Conduit_resolver: <code class="code">sig</code> <a href="Conduit_resolver.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span class="keyword">module</span> Conduit_resolver: <code class="code">sig</code> <a href="Conduit_resolver.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Resolve URIs to endpoints<br>
+</div>
+<hr width="100%">
 
 <pre><code><span id="TYPEservice"><span class="keyword">type</span> <code class="type"></code>service</span> = {</code></pre><table class="typetable">
 <tr>
@@ -55,10 +58,23 @@
 </tr></table>
 }
 
+<div class="info ">
+Description of a single service.
+    Can be populated from <code class="code">/etc/services</code> with the exception of the
+    <code class="code">tls</code> field, which indicates if the connection is intended to be
+    TLS/SSL-encrypted or not (e.g. for <code class="code">https</code>).<br>
+</div>
 
 
 <pre><span class="keyword">module</span> <a href="Conduit_resolver.Make.html">Make</a> <code class="code">(</code><code class="code">IO</code><code class="code"> : </code><code class="type"><a href="Conduit.IO.html">Conduit.IO</a></code><code class="code">) </code>: <code class="type"><a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a></code><code class="type"> 
   with type svc = service
-  and  type 'a io = 'a IO.t</code></pre>
+  and  type 'a io = 'a IO.t</code></pre><div class="info">
+Functor to construct a concrete resolver using a <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a>
+    implementation, usually via either Lwt or Async
+</div>
+
 <pre><span id="VALservice_of_sexp"><span class="keyword">val</span> service_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_resolver.html#TYPEservice">service</a></code></pre>
-<pre><span id="VALsexp_of_service"><span class="keyword">val</span> sexp_of_service</span> : <code class="type"><a href="Conduit_resolver.html#TYPEservice">service</a> -> Sexplib.Sexp.t</code></pre></body></html>
+<pre><span id="VALsexp_of_service"><span class="keyword">val</span> sexp_of_service</span> : <code class="type"><a href="Conduit_resolver.html#TYPEservice">service</a> -> Sexplib.Sexp.t</code></pre><br>
+Functor to construct a concrete resolver using a <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a>
+    implementation, usually via either Lwt or Async<br>
+</body></html>

@@ -27,7 +27,11 @@
 
 <pre><span class="keyword">module</span> Make <code class="code">(</code><code class="code">IO</code><code class="code"> : </code><code class="type"><a href="Conduit.IO.html">Conduit.IO</a></code><code class="code">) </code>: <code class="type"><a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a></code><code class="type"> 
   with type svc = service
-  and  type 'a io = 'a IO.t</code></pre><table border="0" cellpadding="3" width="100%">
+  and  type 'a io = 'a IO.t</code></pre><div class="info module top">
+Functor to construct a concrete resolver using a <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a>
+    implementation, usually via either Lwt or Async<br>
+</div>
+<table border="0" cellpadding="3" width="100%">
 <tr>
 <td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
 <td>
