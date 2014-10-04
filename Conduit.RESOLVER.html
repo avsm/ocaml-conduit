@@ -83,71 +83,11 @@ A service function maps the string (such as <code class="code">http</code> or <c
       let the rewrite function resolve hostnames such as "foo.xen"
       into a shared memory channel for the "foo" virtual machine.<br>
 </div>
-<div class="param_info"><table border="0" cellpadding="3" width="100%">
-<tr>
-<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
-<td>
-<table class="paramstable">
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-service</td>
-<td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit.RESOLVER.html#TYPEservice_fn">service_fn</a> option</code><br>
-
-</tr>
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-rewrites</td>
-<td align="center" valign="top">:</td>
-<td><code class="type">(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list option</code><br>
-
-</tr>
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-?</td>
-<td align="center" valign="top">:</td>
-<td><code class="type">unit</code><br>
-
-</tr>
-</table>
-</td>
-</tr>
-</table></div>
 
 <pre><span id="VALadd_rewrite"><span class="keyword">val</span> add_rewrite</span> : <code class="type">host:string -> f:<a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a> -> <a href="Conduit.RESOLVER.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
 <code class="code">add_rewrite ~host f t</code> will add to the <code class="code">t</code> resolver the <code class="code">f</code> rewrite rule
       for all the domain names that shortest-prefix match <code class="code">host</code><br>
 </div>
-<div class="param_info"><table border="0" cellpadding="3" width="100%">
-<tr>
-<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
-<td>
-<table class="paramstable">
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-host</td>
-<td align="center" valign="top">:</td>
-<td><code class="type">string</code><br>
-
-</tr>
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-f</td>
-<td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a></code><br>
-
-</tr>
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-?</td>
-<td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a></code><br>
-
-</tr>
-</table>
-</td>
-</tr>
-</table></div>
 
 <pre><span id="VALresolve_uri"><span class="keyword">val</span> resolve_uri</span> : <code class="type">?rewrites:(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list -><br>       uri:Uri.t -> <a href="Conduit.RESOLVER.html#TYPEt">t</a> -> <a href="Conduit.html#TYPEendp">Conduit.endp</a> <a href="Conduit.RESOLVER.html#TYPEio">io</a></code></pre><div class="info ">
 <code class="code">resolve_uri ?rewrites ~uri t</code> will use <code class="code">t</code> to resolve the
@@ -155,71 +95,9 @@ f</td>
       in will be overlayed on the existing rules within the <code class="code">t</code>
       resolver, but not otherwise modify it.<br>
 </div>
-<div class="param_info"><table border="0" cellpadding="3" width="100%">
-<tr>
-<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
-<td>
-<table class="paramstable">
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-rewrites</td>
-<td align="center" valign="top">:</td>
-<td><code class="type">(string * <a href="Conduit.RESOLVER.html#TYPErewrite_fn">rewrite_fn</a>) list option</code><br>
 
-</tr>
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-uri</td>
-<td align="center" valign="top">:</td>
-<td><code class="type">Uri.t</code><br>
-
-</tr>
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-?</td>
-<td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a></code><br>
-
-</tr>
-</table>
-</td>
-</tr>
-</table></div>
-
-<pre><span id="VALt_of_sexp"><span class="keyword">val</span> t_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit.RESOLVER.html#TYPEt">t</a></code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
-<tr>
-<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
-<td>
-<table class="paramstable">
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-?</td>
-<td align="center" valign="top">:</td>
-<td><code class="type">Sexplib.Sexp.t</code><br>
-
-</tr>
-</table>
-</td>
-</tr>
-</table></div>
-
-<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
-<tr>
-<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
-<td>
-<table class="paramstable">
-<tr>
-<td align="center" valign="top" width="15%" class="code">
-?</td>
-<td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a></code><br>
-
-</tr>
-</table>
-</td>
-</tr>
-</table></div>
-<br>
+<pre><span id="VALt_of_sexp"><span class="keyword">val</span> t_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit.RESOLVER.html#TYPEt">t</a></code></pre>
+<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit.RESOLVER.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><br>
 Abstract type for a service entry, which maps a URI scheme into
       a protocol handler and TCP port<br>
 <br>
