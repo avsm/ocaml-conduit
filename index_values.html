@@ -79,14 +79,22 @@ Close a Vchan.
 <tr><td><a href="Conduit_lwt_unix_ssl.Client.html#VALconnect">connect</a> [<a href="Conduit_lwt_unix_ssl.Client.html">Conduit_lwt_unix_ssl.Client</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALconnect">connect</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">connect ~ctx client</code> establishes an outgoing connection
+    via the <code class="code">ctx</code> context to the endpoint described by <code class="code">client</code>
+</div>
+</td></tr>
 <tr><td><a href="Conduit_async.html#VALconnect">connect</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>D</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#VALdefault_ctx">default_ctx</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALdefault_ctx">default_ctx</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Default context that listens on all source addresses with
+    no TLS certificate associated with the Conduit
+</div>
+</td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html#VALdefault_ns">default_ns</a> [<a href="Conduit_resolver_mirage.Make.html">Conduit_resolver_mirage.Make</a>]</td>
 <td><div class="info">
 Default resolver to use, which is <code class="code">8.8.8.8</code> (Google DNS).
@@ -99,7 +107,11 @@ An empty tree
 </div>
 </td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALendp_of_flow">endp_of_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">endp_of_flow flow</code> retrieves the original <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a>
+    from the established <code class="code">flow</code>
+</div>
+</td></tr>
 <tr><td><a href="Conduit.html#VALendp_of_sexp">endp_of_sexp</a> [<a href="Conduit.html">Conduit</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.S.html#VALendp_to_client">endp_to_client</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
@@ -111,18 +123,24 @@ Use the configuration of the server to interpret how to handle a
 </td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALendp_to_client">endp_to_client</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td><div class="info">
-Use the configuration of the server to interpret how to handle a
-    particular endpoint from the resolver into a concrete
-    implementation of type <code class="code">client</code>
+<code class="code">endp_to_client ~ctx endp</code> converts an <code class="code">endp</code> into a
+    a concrete connection mechanism of type <code class="code">client</code>
 </div>
 </td></tr>
 <tr><td><a href="Conduit_mirage.S.html#VALendp_to_server">endp_to_server</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALendp_to_server">endp_to_server</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">endp_to_server ~ctx endp</code> converts an <code class="code">endp</code> into a
+    a concrete connection mechanism of type <code class="code">client</code>
+</div>
+</td></tr>
 <tr><td align="left"><br>F</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALflow_of_sexp">flow_of_sexp</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Type of an established connection
+</div>
+</td></tr>
 <tr><td><a href="Conduit_trie.html#VALfold">fold</a> [<a href="Conduit_trie.html">Conduit_trie</a>]</td>
 <td><div class="info">
 <code class="code">fold f initial t</code> folds <code class="code">f</code> over all bindings in <code class="code">t</code>
@@ -134,7 +152,11 @@ Use the configuration of the server to interpret how to handle a
 <tr><td><a href="Conduit_lwt_unix_ssl.Server.html#VALinit">init</a> [<a href="Conduit_lwt_unix_ssl.Server.html">Conduit_lwt_unix_ssl.Server</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALinit">init</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">init ?src ?tls_server_key</code> will initialize a Unix conduit
+    that binds to the <code class="code">src</code> interface if specified.
+</div>
+</td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#VALinit">init</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
 <td><div class="info">
 <code class="code">init ?service ?rewrites</code> will initialize the resolver and return
@@ -181,7 +203,11 @@ Use the configuration of the server to interpret how to handle a
 <tr><td><a href="Conduit_mirage.S.html#VALserve">serve</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALserve">serve</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">serve ?timeout ?stop ~ctx ~mode fn</code> establishes a listening
+    connection of type <code class="code">mode</code>, using the <code class="code">ctx</code> context.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_async.html#VALserve">serve</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#VALserver">server</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>

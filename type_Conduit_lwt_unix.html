@@ -41,11 +41,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Crt_file_path</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;]&nbsp;*&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Key_file_path</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;]&nbsp;*<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">No_password</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Password</span>&nbsp;<span class="keyword">of</span>&nbsp;bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;]&nbsp;]<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;ctx<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;default_ctx&nbsp;:&nbsp;<span class="constructor">Conduit_lwt_unix</span>.ctx<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;init&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;?src:string&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;?tls_server_key:<span class="constructor">Conduit_lwt_unix</span>.tls_server_key&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Conduit_lwt_unix</span>.ctx&nbsp;<span class="constructor">Conduit_lwt_unix</span>.io<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;default_ctx&nbsp;:&nbsp;<span class="constructor">Conduit_lwt_unix</span>.ctx<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;connect&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ctx:<span class="constructor">Conduit_lwt_unix</span>.ctx&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_lwt_unix</span>.client&nbsp;<span class="keywordsign">-&gt;</span><br>
