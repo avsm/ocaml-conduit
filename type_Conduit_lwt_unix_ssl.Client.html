@@ -15,13 +15,13 @@
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_resolver_mirage.Make</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_lwt_unix_ssl.Client</title>
 </head>
 <body>
-<code class="code"><span class="keyword">functor</span>&nbsp;(<span class="constructor">DNS</span>&nbsp;:&nbsp;<span class="constructor">Dns_resolver_mirage</span>.<span class="constructor">S</span>)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;<span class="keyword">sig</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;default_ns&nbsp;:&nbsp;<span class="constructor">Ipaddr</span>.<span class="constructor">V4</span>.t<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;system&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?ns:<span class="constructor">Ipaddr</span>.<span class="constructor">V4</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;?dns_port:int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">DNS</span>.stack&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Conduit_resolver_lwt</span>.t<br>
-&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;connect&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?src:<span class="constructor">Lwt_unix</span>.sockaddr&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lwt_unix</span>.sockaddr&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Lwt_unix</span>.file_descr&nbsp;*&nbsp;<span class="constructor">Lwt_io</span>.input_channel&nbsp;*&nbsp;<span class="constructor">Lwt_io</span>.output_channel)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lwt</span>.t<br>
+<span class="keyword">end</span></code></body></html>
