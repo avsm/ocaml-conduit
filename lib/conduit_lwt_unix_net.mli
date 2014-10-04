@@ -13,36 +13,29 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
-*)
+ *)
 
-open Core.Std
-open Async.Std
+module Sockaddr_client : sig
+  open Lwt_io
 
-type +'a io = 'a Deferred.t
-type ic = Reader.t
-type oc = Writer.t
+  val connect : ?src:Lwt_unix.sockaddr -> Lwt_unix.sockaddr ->
+   (Lwt_unix.file_descr * input channel * output channel) Lwt.t
 
-module Client : sig
-  val connect : ?interrupt:unit io -> Conduit.Client.t -> (ic * oc) io
+  val close : input channel * output channel -> unit Lwt.t
 end
 
-module Server : sig
-  type mode = [
-    | `OpenSSL of
-       [ `Crt_file_path of string ] * 
-       [ `Key_file_path of string ]
-    | `TCP
-  ] with sexp
+module Sockaddr_server : sig
+  open Lwt_io
 
-  val create :
-    ?max_connections:int ->
-    ?max_pending_connections:int ->
-    ?buffer_age_limit:Writer.buffer_age_limit ->
-    ?on_handler_error:[ `Call of ([< Socket.Address.t ] as 'a) -> exn -> unit
-                      | `Ignore
-                      | `Raise ] ->
-    mode ->
-    ('a, 'b) Tcp.Where_to_listen.t ->
-    ('a -> ic -> oc -> unit io) -> 
-    ('a, 'b) Tcp.Server.t io
+  val init_socket : Lwt_unix.sockaddr -> Lwt_unix.file_descr
+
+  val init :
+    sockaddr:Lwt_unix.sockaddr ->
+    ?stop:(unit Lwt.t) ->
+    ?timeout:int ->
+    (Lwt_unix.file_descr -> input channel -> output channel -> unit Lwt.t) ->
+    unit Lwt.t
+
+  val close : input channel * output channel -> unit Lwt.t
 end
+

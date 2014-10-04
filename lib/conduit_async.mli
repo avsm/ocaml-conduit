@@ -13,29 +13,38 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- *)
+*)
 
-type 'a io = 'a Lwt.t
-type ic = Lwt_io.input_channel
-type oc = Lwt_io.output_channel
-type endp = Lwt_unix.sockaddr
+open Core.Std
+open Async.Std
 
-type ctx
-val system : ctx
-val init : ?src:string -> ?resolver:Lwt_conduit_resolver.t -> unit -> ctx io
+type +'a io = 'a Deferred.t
+type ic = Reader.t
+type oc = Writer.t
 
-(** An individual connection *)
+type addr = [
+  | `OpenSSL of string * Ipaddr.t * int
+  | `TCP of Ipaddr.t * int
+  | `Unix_domain_socket of string
+] with sexp
 
-type conn
-val peername : conn -> endp
-val sockname : conn -> endp
+val connect : ?interrupt:unit io -> addr -> (ic * oc) io
 
-module Client : sig
-  val connect : ?ctx:ctx -> Conduit.Client.t -> (conn * ic * oc) io
-  val connect_to_uri : ?ctx:ctx -> Uri.t -> (conn * ic * oc) io
-end
+type server = [
+  | `OpenSSL of
+    [ `Crt_file_path of string ] * 
+    [ `Key_file_path of string ]
+  | `TCP
+] with sexp
 
-module Server : sig
-  val serve : ?timeout:int -> ?ctx:ctx -> ?stop:(unit Lwt.t) ->
-    Conduit.Server.t -> (conn -> ic -> oc -> unit io) -> unit io
-end
+val serve :
+  ?max_connections:int ->
+  ?max_pending_connections:int ->
+  ?buffer_age_limit:Writer.buffer_age_limit ->
+  ?on_handler_error:[ `Call of ([< Socket.Address.t ] as 'a) -> exn -> unit
+    | `Ignore
+    | `Raise ] ->
+    server ->
+    ('a, 'b) Tcp.Where_to_listen.t ->
+    ('a -> ic -> oc -> unit io) -> 
+    ('a, 'b) Tcp.Server.t io

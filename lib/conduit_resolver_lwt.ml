@@ -15,8 +15,14 @@
  *
 *)
 
-module IO : Conduit.IO with type 'a t = 'a Lwt.t
+module IO = struct
+  type 'a t = 'a Lwt.t
+  let (>>=) = Lwt.bind
+  let return = Lwt.return
+end
 
-include Conduit.RESOLVER 
+module type S = Conduit.RESOLVER
   with type svc = Conduit_resolver.service
   and  type 'a io = 'a Lwt.t
+
+include Conduit_resolver.Make(IO)

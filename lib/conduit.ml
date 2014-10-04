@@ -22,34 +22,10 @@ open Sexplib.Std
 type endp = [
   | `TCP of Ipaddr.t * int        (** ipaddr and dst port *)
   | `Unix_domain_socket of string (** unix file path *)
-  | `Vchan of string list         (** xenstore path *)
+  | `Vchan of int * string        (** domain id, port *)
   | `TLS of string * endp         (** wrap in a TLS channel, [hostname,endp] *)
   | `Unknown of string            (** failed resolution *)
 ] with sexp
-
-module Client = struct
-
-  type t = [
-    | `OpenSSL of string * Ipaddr.t * int
-    | `TCP of Ipaddr.t * int
-    | `Unix_domain_socket of string
-  ] with sexp
-
-end
-
-module Server = struct
-
-  type t = [
-    | `OpenSSL of
-       [ `Crt_file_path of string ] * 
-       [ `Key_file_path of string ] *
-       [ `Password of bool -> string | `No_password ] *
-       [ `Port of int ]
-    | `TCP of [ `Port of int ]
-    | `Unix_domain_socket of [ `File of string ]
-  ] with sexp
-
-end
 
 module type IO = sig
   type +'a t
@@ -75,4 +51,3 @@ module type RESOLVER = sig
     ?rewrites:(string * rewrite_fn) list ->
     uri:Uri.t -> t -> endp io
 end
-

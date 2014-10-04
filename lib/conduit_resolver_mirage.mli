@@ -1,5 +1,5 @@
 (*
- * Copyright (c) 2012-2014 Anil Madhavapeddy <anil@recoil.org>
+ * Copyright (c) 2014 Anil Madhavapeddy <anil@recoil.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,27 +15,21 @@
  *
  *)
 
-module Sockaddr_client : sig
-  open Lwt_io
+(** [static hosts] constructs a resolver that looks up any resolution
+    requests from the static [hosts] hashtable instead of using the
+    system resolver. *)
+val static : (string, (port:int -> Conduit.endp)) Hashtbl.t -> Conduit_resolver_lwt.t
 
-  val connect : ?src:Lwt_unix.sockaddr -> Lwt_unix.sockaddr ->
-   ([`TCP of Unix.file_descr] * input channel * output channel) Lwt.t
+(** [localhost] is a static resolver that has a single entry that
+    maps [localhost] to [127.0.0.1], and fails on all other hostnames. *)
+val localhost : Conduit_resolver_lwt.t
 
-  val close : input channel * output channel -> unit Lwt.t
+module Make(DNS:Dns_resolver_mirage.S) : sig
+  type t
+
+  val default_ns : Ipaddr.V4.t
+
+  val system :
+    ?ns:Ipaddr.V4.t -> ?dns_port:int ->
+    DNS.stack -> Conduit_resolver_lwt.t
 end
-
-module Sockaddr_server : sig
-  open Lwt_io
-
-  val init_socket : Lwt_unix.sockaddr -> Lwt_unix.file_descr
-
-  val init :
-    sockaddr:Lwt_unix.sockaddr ->
-    ?stop:(unit Lwt.t) ->
-    ?timeout:int ->
-    ([`TCP of Unix.file_descr] -> input channel -> output channel -> unit Lwt.t) ->
-    unit Lwt.t
-
-  val close : input channel * output channel -> unit Lwt.t
-end
-

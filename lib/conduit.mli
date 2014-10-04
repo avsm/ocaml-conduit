@@ -15,40 +15,17 @@
  *
 *)
 
+(** The conduit API *)
 
 (** End points that can potentially be connected to.
     These are typically returned by a call to [Conduit_resolver]. *)
 type endp = [
   | `TCP of Ipaddr.t * int        (** IP address and destination port *)
   | `Unix_domain_socket of string (** Unix domain file path *)
-  | `Vchan of string list         (** Xenstore path *)
+  | `Vchan of int * string        (** domain id, port *)
   | `TLS of string * endp         (** Wrap in a TLS channel, [hostname,endp] *)
   | `Unknown of string            (** Failed resolution *)
 ] with sexp
-
-module Client : sig
-
-  type t = [
-    | `OpenSSL of string * Ipaddr.t * int
-    | `TCP of Ipaddr.t * int
-    | `Unix_domain_socket of string
-  ] with sexp
-
-end
-
-module Server : sig
-
-  type t = [
-    | `OpenSSL of
-       [ `Crt_file_path of string ] * 
-       [ `Key_file_path of string ] *
-       [ `Password of bool -> string | `No_password ] *
-       [ `Port of int]
-    | `TCP of [ `Port of int ]
-    | `Unix_domain_socket of [ `File of string ]
-  ] with sexp
-
-end
 
 module type IO = sig
   type +'a t
