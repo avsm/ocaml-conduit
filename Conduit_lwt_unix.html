@@ -31,14 +31,21 @@
 <h1>Module <a href="type_Conduit_lwt_unix.html">Conduit_lwt_unix</a></h1>
 
 <pre><span class="keyword">module</span> Conduit_lwt_unix: <code class="code">sig</code> <a href="Conduit_lwt_unix.html">..</a> <code class="code">end</code></pre><div class="info module top">
-Connection establishment using the <code class="code">Lwt_unix</code> library<br>
+Connection establishment using the
+    <a href="http://ocsigen.org/lwt/api/Lwt_unix">Lwt_unix</a> library<br>
 </div>
 <hr width="100%">
 
 <pre><span id="TYPEclient"><span class="keyword">type</span> <code class="type"></code>client</span> = <code class="type">[ `OpenSSL of string * Ipaddr.t * int<br>       | `TCP of Ipaddr.t * int<br>       | `Unix_domain_socket of string<br>       | `Vchan of int * string ]</code> </pre>
+<div class="info ">
+Set of supported client connections that are supported by this module.<br>
+</div>
 
 
 <pre><span id="TYPEserver"><span class="keyword">type</span> <code class="type"></code>server</span> = <code class="type">[ `OpenSSL of<br>           [ `Crt_file_path of string ] * [ `Key_file_path of string ] *<br>           [ `No_password | `Password of bool -> string ] * [ `Port of int ]<br>       | `TCP of [ `Port of int ]<br>       | `Unix_domain_socket of [ `File of string ]<br>       | `Vchan of int * string ]</code> </pre>
+<div class="info ">
+Set of supported listening mechanisms that are supported by this module.<br>
+</div>
 
 
 <pre><span id="TYPEio"><span class="keyword">type</span> <code class="type">'a</code> io</span> = <code class="type">'a Lwt.t</code> </pre>
@@ -74,7 +81,10 @@ Use the configuration of the server to interpret how to handle a
 <pre><span id="VALclient_of_sexp"><span class="keyword">val</span> client_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEclient">client</a></code></pre>
 <pre><span id="VAL__client_of_sexp__"><span class="keyword">val</span> __client_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEclient">client</a></code></pre>
 <pre><span id="VALsexp_of_client"><span class="keyword">val</span> sexp_of_client</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEclient">client</a> -> Sexplib.Sexp.t</code></pre>
-<pre><span id="VALserver_of_sexp"><span class="keyword">val</span> server_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEserver">server</a></code></pre>
+<pre><span id="VALserver_of_sexp"><span class="keyword">val</span> server_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEserver">server</a></code></pre><div class="info ">
+Set of supported listening mechanisms that are supported by this module.<br>
+</div>
+
 <pre><span id="VAL__server_of_sexp__"><span class="keyword">val</span> __server_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEserver">server</a></code></pre>
 <pre><span id="VALsexp_of_server"><span class="keyword">val</span> sexp_of_server</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEserver">server</a> -> Sexplib.Sexp.t</code></pre>
 <pre><span id="VALflow_of_sexp"><span class="keyword">val</span> flow_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEflow">flow</a></code></pre>
