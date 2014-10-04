@@ -45,7 +45,11 @@
 <td></td></tr>
 <tr><td align="left"><br>C</td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#VALclient">client</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">client ~domid ~port</code> will connect to a remote <code class="code">domid</code> and <code class="code">port</code> combination,
+    where a server should already be listening after making a call to <a href="Conduit_mirage.ENDPOINT.html#VALserver"><code class="code">Conduit_mirage.ENDPOINT.server</code></a>.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALclient_of_sexp">client_of_sexp</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.html#VALclient_of_sexp">client_of_sexp</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
@@ -61,7 +65,7 @@ Configuration for a single client connection
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#VALclose">close</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
 <td><div class="info">
-Close a vchan.
+Close a Vchan.
 </div>
 </td></tr>
 <tr><td><a href="Conduit_lwt_unix_net_ssl.Client.html#VALconnect">connect</a> [<a href="Conduit_lwt_unix_net_ssl.Client.html">Conduit_lwt_unix_net_ssl.Client</a>]</td>
@@ -166,7 +170,12 @@ Use the configuration of the server to interpret how to handle a
 <tr><td><a href="Conduit_mirage.S.html#VALserve">serve</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#VALserver">server</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">server ~domid ~port ?read_size ?write_size</code> will listen on a connection for
+      a source <code class="code">domid</code> and <code class="code">port</code> combination, block until a client connects, and 
+      then return a <a href="Conduit_mirage.ENDPOINT.html#TYPEt"><code class="code">Conduit_mirage.ENDPOINT.t</code></a> handle to read and write on the resulting connection.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#VALserver_of_sexp">server_of_sexp</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.html#VALserver_of_sexp">server_of_sexp</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
@@ -197,11 +206,7 @@ Configuration for listening on a server port.
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#VALsexp_of_t">sexp_of_t</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.html#VALsexp_of_vchan_port">sexp_of_vchan_port</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
-<td><div class="info">
-Vchan is not available in this library: recompile it with 
-    the <code class="code">vchan</code> package from OPAM to enable support
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td><a href="Conduit_resolver_lwt_unix.html#VALstatic">static</a> [<a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a>]</td>
 <td><div class="info">
 <code class="code">static hosts</code> constructs a resolver that looks up any resolution

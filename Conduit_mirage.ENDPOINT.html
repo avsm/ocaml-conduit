@@ -27,21 +27,43 @@
 </div>
 <h1>Module type <a href="type_Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a></h1>
 
-<pre><span class="keyword">module type</span> ENDPOINT = <code class="code">sig</code> <a href="Conduit_mirage.ENDPOINT.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span class="keyword">module type</span> ENDPOINT = <code class="code">sig</code> <a href="Conduit_mirage.ENDPOINT.html">..</a> <code class="code">end</code></pre><div class="info modtype top">
+Module type of a Vchan endpoint<br>
+</div>
+<hr width="100%">
 
 <pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+Type of a single connection<br>
+</div>
 
 
 <pre><span id="TYPEport"><span class="keyword">type</span> <code class="type"></code>port</span> = <code class="type"><a href="Conduit_mirage.html#TYPEvchan_port">Conduit_mirage.vchan_port</a></code> </pre>
+<div class="info ">
+Type of the port name that identifies a unique connection at an endpoint<br>
+</div>
 
 
 <pre><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = <code class="type">[ `Unknown of string ]</code> </pre>
 
 
-<pre><span id="VALserver"><span class="keyword">val</span> server</span> : <code class="type">domid:int -><br>       port:<a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a> -><br>       ?read_size:int -> ?write_size:int -> unit -> <a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> Lwt.t</code></pre>
-<pre><span id="VALclient"><span class="keyword">val</span> client</span> : <code class="type">domid:int -><br>       port:<a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a> -> unit -> <a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> Lwt.t</code></pre>
+<pre><span id="VALserver"><span class="keyword">val</span> server</span> : <code class="type">domid:int -><br>       port:<a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a> -><br>       ?read_size:int -> ?write_size:int -> unit -> <a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> Lwt.t</code></pre><div class="info ">
+<code class="code">server ~domid ~port ?read_size ?write_size</code> will listen on a connection for
+      a source <code class="code">domid</code> and <code class="code">port</code> combination, block until a client connects, and 
+      then return a <a href="Conduit_mirage.ENDPOINT.html#TYPEt"><code class="code">Conduit_mirage.ENDPOINT.t</code></a> handle to read and write on the resulting connection.
+      The size of the shared memory buffer can be controlled by setting <code class="code">read_size</code>
+      or <code class="code">write_size</code> in bytes.<br>
+</div>
+
+<pre><span id="VALclient"><span class="keyword">val</span> client</span> : <code class="type">domid:int -><br>       port:<a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a> -> unit -> <a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> Lwt.t</code></pre><div class="info ">
+<code class="code">client ~domid ~port</code> will connect to a remote <code class="code">domid</code> and <code class="code">port</code> combination,
+    where a server should already be listening after making a call to <a href="Conduit_mirage.ENDPOINT.html#VALserver"><code class="code">Conduit_mirage.ENDPOINT.server</code></a>.
+    The call will block until a connection is established, after which it will return
+    a <a href="Conduit_mirage.ENDPOINT.html#TYPEt"><code class="code">Conduit_mirage.ENDPOINT.t</code></a> handle that can be used to read or write on the shared memory connection.<br>
+</div>
+
 <pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type">flow -> unit io</code></pre><div class="info ">
-Close a vchan. This deallocates the vchan and attempts to free
+Close a Vchan. This deallocates the Vchan and attempts to free
       its resources. The other side is notified of the close, but can
       still read any data pending prior to the close.<br>
 </div>
@@ -49,7 +71,20 @@ Close a vchan. This deallocates the vchan and attempts to free
 <pre><span class="keyword">include</span> V1_LWT.FLOW</pre>
 
 <pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><br>
-Close a vchan. This deallocates the vchan and attempts to free
+Type of the port name that identifies a unique connection at an endpoint<br>
+<br>
+<code class="code">server ~domid ~port ?read_size ?write_size</code> will listen on a connection for
+      a source <code class="code">domid</code> and <code class="code">port</code> combination, block until a client connects, and 
+      then return a <a href="Conduit_mirage.ENDPOINT.html#TYPEt"><code class="code">Conduit_mirage.ENDPOINT.t</code></a> handle to read and write on the resulting connection.
+      The size of the shared memory buffer can be controlled by setting <code class="code">read_size</code>
+      or <code class="code">write_size</code> in bytes.<br>
+<br>
+<code class="code">client ~domid ~port</code> will connect to a remote <code class="code">domid</code> and <code class="code">port</code> combination,
+    where a server should already be listening after making a call to <a href="Conduit_mirage.ENDPOINT.html#VALserver"><code class="code">Conduit_mirage.ENDPOINT.server</code></a>.
+    The call will block until a connection is established, after which it will return
+    a <a href="Conduit_mirage.ENDPOINT.html#TYPEt"><code class="code">Conduit_mirage.ENDPOINT.t</code></a> handle that can be used to read or write on the shared memory connection.<br>
+<br>
+Close a Vchan. This deallocates the Vchan and attempts to free
       its resources. The other side is notified of the close, but can
       still read any data pending prior to the close.<br>
 </body></html>
