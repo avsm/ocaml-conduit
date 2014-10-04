@@ -29,17 +29,31 @@
 
 <pre><span class="keyword">module</span> Conduit_mirage: <code class="code">sig</code> <a href="Conduit_mirage.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Functorial interface to Conduit that is compatible with the Mirage
-    module types.<br>
+    module types.  Currently supports two transports: TCPv4 for remote
+    communications, and Vchan for inter-VM communication within a single
+    Xen host.<br>
 </div>
 <hr width="100%">
+<br>
+A Vchan port name<br>
 
 <pre><span id="TYPEvchan_port"><span class="keyword">type</span> <code class="type"></code>vchan_port</span> = <code class="type">[ `Vchan_not_available ]</code> </pre>
+<div class="info ">
+Vchan is not available in this library: recompile it with 
+    the <code class="code">vchan</code> package from OPAM to enable support<br>
+</div>
 
 
 <pre><span id="TYPEclient"><span class="keyword">type</span> <code class="type"></code>client</span> = <code class="type">[ `TCP of Ipaddr.t * int | `Vchan of int * <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> ]</code> </pre>
+<div class="info ">
+Configuration for a single client connection<br>
+</div>
 
 
 <pre><span id="TYPEserver"><span class="keyword">type</span> <code class="type"></code>server</span> = <code class="type">[ `TCP of [ `Port of int ] | `Vchan of int * <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> ]</code> </pre>
+<div class="info ">
+Configuration for listening on a server port.<br>
+</div>
 
 
 <pre><span class="keyword">module type</span> <a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a> = <code class="code">sig</code> <a href="Conduit_mirage.ENDPOINT.html">..</a> <code class="code">end</code></pre>
@@ -47,14 +61,24 @@ Functorial interface to Conduit that is compatible with the Mirage
 <pre><span class="keyword">module type</span> <a href="Conduit_mirage.S.html">S</a> = <code class="code">sig</code> <a href="Conduit_mirage.S.html">..</a> <code class="code">end</code></pre>
 <pre><span class="keyword">module</span> <a href="Conduit_mirage.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.STACKV4</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) -&gt; </code><code class="type"><a href="Conduit_mirage.S.html">S</a></code><code class="type">  with type stack = S.t</code></div></div></pre>
 <pre><span id="VALvchan_port_of_sexp"><span class="keyword">val</span> vchan_port_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a></code></pre>
-<pre><span id="VALsexp_of_vchan_port"><span class="keyword">val</span> sexp_of_vchan_port</span> : <code class="type"><a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> -> Sexplib.Sexp.t</code></pre>
+<pre><span id="VALsexp_of_vchan_port"><span class="keyword">val</span> sexp_of_vchan_port</span> : <code class="type"><a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> -> Sexplib.Sexp.t</code></pre><div class="info ">
+Vchan is not available in this library: recompile it with 
+    the <code class="code">vchan</code> package from OPAM to enable support<br>
+</div>
+
 <pre><span id="VALvchan_port_of_sexp"><span class="keyword">val</span> vchan_port_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a></code></pre>
 <pre><span id="VAL__vchan_port_of_sexp__"><span class="keyword">val</span> __vchan_port_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a></code></pre>
 <pre><span id="VALsexp_of_vchan_port"><span class="keyword">val</span> sexp_of_vchan_port</span> : <code class="type"><a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> -> Sexplib.Sexp.t</code></pre>
-<pre><span id="VALclient_of_sexp"><span class="keyword">val</span> client_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEclient">client</a></code></pre>
+<pre><span id="VALclient_of_sexp"><span class="keyword">val</span> client_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEclient">client</a></code></pre><div class="info ">
+Configuration for a single client connection<br>
+</div>
+
 <pre><span id="VAL__client_of_sexp__"><span class="keyword">val</span> __client_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEclient">client</a></code></pre>
 <pre><span id="VALsexp_of_client"><span class="keyword">val</span> sexp_of_client</span> : <code class="type"><a href="Conduit_mirage.html#TYPEclient">client</a> -> Sexplib.Sexp.t</code></pre>
-<pre><span id="VALserver_of_sexp"><span class="keyword">val</span> server_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEserver">server</a></code></pre>
+<pre><span id="VALserver_of_sexp"><span class="keyword">val</span> server_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEserver">server</a></code></pre><div class="info ">
+Configuration for listening on a server port.<br>
+</div>
+
 <pre><span id="VAL__server_of_sexp__"><span class="keyword">val</span> __server_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_mirage.html#TYPEserver">server</a></code></pre>
 <pre><span id="VALsexp_of_server"><span class="keyword">val</span> sexp_of_server</span> : <code class="type"><a href="Conduit_mirage.html#TYPEserver">server</a> -> Sexplib.Sexp.t</code></pre><br>
 Close a vchan. This deallocates the vchan and attempts to free
