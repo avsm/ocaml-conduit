@@ -21,16 +21,34 @@
 </head>
 <body>
 <h1></h1>
-<ul class="indexlist">
-<li><a href="index_types.html">Index of types</a></li>
-<li><a href="index_values.html">Index of values</a></li>
-<li><a href="index_modules.html">Index of modules</a></li>
-<li><a href="index_module_types.html">Index of module types</a></li>
-</ul>
-<br/><br>
-<table class="indextable">
-<tr><td class="module"><a href="Conduit.html">Conduit</a></td><td><div class="info">
 Interface for establishing reliable stream-oriented connections.
+<p>
+
+The <a href="Conduit.html"><code class="code">Conduit</code></a> library abstracts the concerns of establishing connections to
+peers that may be running within the same host (e.g. in another virtual
+machine) or on a remote host via TCP.  It consists of one library that is
+responsible for establishing individual connections, and a
+name resolver that maps URIs to endpoints.
+<p>
+
+<h2 id="transport">Connection Establishment</h2> 
+<p>
+
+Connections are created by identifying remote nodes using an
+<a href="Conduit.html#TYPEendp">endp</a> value.  To ensure portability, the
+<a href="Conduit.html#TYPEendp">endpoints</a> are translated into concrete connections by separate
+modules that target <code class="code">Lwt_unix</code>, <code class="code">Async</code> and <code class="code">Mirage</code>.  This lets those backends
+use the appropriate local technique for creating the connection (such as using
+OpenSSL on Unix, or a pure OCaml TLS+TCP implementation on Mirage, or some
+other combination).
+<p>
+
+The modules dealing with connection establishment are:
+<br>
+<table class="indextable">
+<tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
+Connection establishment using the
+    <a href="http://ocsigen.org/lwt/api/Lwt_unix">Lwt_unix</a> library
 </div>
 </td></tr>
 <tr><td class="module"><a href="Conduit_async.html">Conduit_async</a></td><td><div class="info">
@@ -38,24 +56,26 @@ Connection establishment using the
     <a href="https://github.com/janestreet/async">Async</a> library
 </div>
 </td></tr>
-<tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
-Connection establishment using the
-    <a href="http://ocsigen.org/lwt/api/Lwt_unix">Lwt_unix</a> library
-</div>
-</td></tr>
-<tr><td class="module"><a href="Conduit_lwt_unix_ssl.html">Conduit_lwt_unix_ssl</a></td><td><div class="info">
-TLS/SSL connections via <a href="http://www.openssl.org">OpenSSL</a> C bindings
-</div>
-</td></tr>
 <tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
 Functorial connection establishment interface that is compatible with
     the Mirage libraries.
 </div>
 </td></tr>
-<tr><td class="module"><a href="Conduit_resolver.html">Conduit_resolver</a></td><td><div class="info">
-Resolve URIs to endpoints
-</div>
-</td></tr>
+</table>
+
+<p>
+
+<h2 id="resolution">Name Resolution</h2>
+<p>
+
+This deals with resolving URIs into a list of <a href="Conduit.html#TYPEendp">endp</a> addresses that can
+then be connected to by the connection establishment modules.
+<p>
+
+All of the name resolvers conform to the <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> module type.
+The OS-specific implementations of this interface are: 
+<br>
+<table class="indextable">
 <tr><td class="module"><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a></td><td><div class="info">
 Resolve URIs to endpoints using the <a href="http://ocsigen.org/lwt">Lwt</a> library
 </div>
@@ -68,10 +88,16 @@ Resolve URIs to endpoints using Unix system calls
 Functorial interface for resolving URIs to endpoints.
 </div>
 </td></tr>
-<tr><td class="module"><a href="Conduit_trie.html">Conduit_trie</a></td><td><div class="info">
-Radix tree that can do longest-prefix searches on string keys
-</div>
-</td></tr>
 </table>
+
+<p>
+
+<ul class="indexlist">
+<li><a href="index_types.html">Index of types</a></li>
+<li><a href="index_values.html">Index of values</a></li>
+<li><a href="index_modules.html">Index of modules</a></li>
+<li><a href="index_module_types.html">Index of module types</a></li>
+</ul>
+<br>
 </body>
 </html>
