@@ -10,16 +10,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
 <link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
 <link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_lwt_unix_net_ssl.Server</title>
 </head>
 <body>
@@ -30,6 +30,131 @@
 
 <pre><span class="keyword">module</span> Server: <code class="code">sig</code> <a href="Conduit_lwt_unix_net_ssl.Server.html">..</a> <code class="code">end</code></pre><hr width="100%">
 
-<pre><span id="VALaccept"><span class="keyword">val</span> accept</span> : <code class="type">Lwt_unix.file_descr -><br>       (Lwt_unix.file_descr * Lwt_io.input_channel * Lwt_io.output_channel) Lwt.t</code></pre>
-<pre><span id="VALlisten"><span class="keyword">val</span> listen</span> : <code class="type">?nconn:int -><br>       ?password:(bool -> string) -><br>       certfile:string -> keyfile:string -> Lwt_unix.sockaddr -> Lwt_unix.file_descr</code></pre>
-<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?nconn:int -><br>       ?password:(bool -> string) -><br>       certfile:string -><br>       keyfile:string -><br>       ?stop:unit Lwt.t -><br>       ?timeout:int -><br>       Lwt_unix.sockaddr -><br>       (Lwt_unix.file_descr -><br>        Lwt_io.input_channel -> Lwt_io.output_channel -> unit Lwt.t) -><br>       unit Lwt.t</code></pre></body></html>
+<pre><span id="VALaccept"><span class="keyword">val</span> accept</span> : <code class="type">Lwt_unix.file_descr -><br>       (Lwt_unix.file_descr * Lwt_io.input_channel * Lwt_io.output_channel) Lwt.t</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Lwt_unix.file_descr</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+
+<pre><span id="VALlisten"><span class="keyword">val</span> listen</span> : <code class="type">?nconn:int -><br>       ?password:(bool -> string) -><br>       certfile:string -> keyfile:string -> Lwt_unix.sockaddr -> Lwt_unix.file_descr</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+nconn</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+password</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">(bool -> string) option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+certfile</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+keyfile</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Lwt_unix.sockaddr</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?nconn:int -><br>       ?password:(bool -> string) -><br>       certfile:string -><br>       keyfile:string -><br>       ?stop:unit Lwt.t -><br>       ?timeout:int -><br>       Lwt_unix.sockaddr -><br>       (Lwt_unix.file_descr -><br>        Lwt_io.input_channel -> Lwt_io.output_channel -> unit Lwt.t) -><br>       unit Lwt.t</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+nconn</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+password</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">(bool -> string) option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+certfile</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+keyfile</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">string</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+stop</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit Lwt.t option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+timeout</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Lwt_unix.sockaddr</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">Lwt_unix.file_descr -><br>       Lwt_io.input_channel -> Lwt_io.output_channel -> unit Lwt.t</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+</body></html>

@@ -10,16 +10,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
 <link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
 <link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit_mirage.ENDPOINT</title>
 </head>
 <body>
@@ -55,6 +55,50 @@ Type of the port name that identifies a unique connection at an endpoint<br>
       The size of the shared memory buffer can be controlled by setting <code class="code">read_size</code>
       or <code class="code">write_size</code> in bytes.<br>
 </div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+domid</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+port</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+read_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+write_size</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int option</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
 
 <pre><span id="VALclient"><span class="keyword">val</span> client</span> : <code class="type">domid:int -><br>       port:<a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a> -> unit -> <a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> Lwt.t</code></pre><div class="info ">
 <code class="code">client ~domid ~port</code> will connect to a remote <code class="code">domid</code> and <code class="code">port</code> combination,
@@ -62,16 +106,78 @@ Type of the port name that identifies a unique connection at an endpoint<br>
     The call will block until a connection is established, after which it will return
     a <a href="Conduit_mirage.ENDPOINT.html#TYPEt"><code class="code">Conduit_mirage.ENDPOINT.t</code></a> handle that can be used to read or write on the shared memory connection.<br>
 </div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+domid</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">int</code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+port</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a></code><br>
+
+</tr>
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">unit</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
 
 <pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type">flow -> unit io</code></pre><div class="info ">
 Close a Vchan. This deallocates the Vchan and attempts to free
       its resources. The other side is notified of the close, but can
       still read any data pending prior to the close.<br>
 </div>
+<div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type">flow</code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
 
 <pre><span class="keyword">include</span> V1_LWT.FLOW</pre>
 
-<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><br>
+<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><div class="param_info"><table border="0" cellpadding="3" width="100%">
+<tr>
+<td align="left" valign="top" width="1%"><b>Parameters: </b></td>
+<td>
+<table class="paramstable">
+<tr>
+<td align="center" valign="top" width="15%" class="code">
+?</td>
+<td align="center" valign="top">:</td>
+<td><code class="type"><a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a></code><br>
+
+</tr>
+</table>
+</td>
+</tr>
+</table></div>
+<br>
 Type of the port name that identifies a unique connection at an endpoint<br>
 <br>
 <code class="code">server ~domid ~port ?read_size ?write_size</code> will listen on a connection for

@@ -8,16 +8,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
 <link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
 <link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title></title>
 </head>
 <body>
@@ -30,20 +30,13 @@
 </ul>
 <br/><br>
 <table class="indextable">
+<tr><td class="module"><a href="Conduit.html">Conduit</a></td><td><div class="info">
+Interface for establishing reliable stream-oriented connections.
+</div>
+</td></tr>
 <tr><td class="module"><a href="Conduit_async.html">Conduit_async</a></td><td><div class="info">
 Connection establishment using the
     <a href="https://github.com/janestreet/async">Async</a> library
-</div>
-</td></tr>
-<tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
-Functorial connection establishment interface that is compatible with
-    the Mirage libraries.
-</div>
-</td></tr>
-<tr><td class="module"><a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a></td><td><div class="info">
-<code class="code">static hosts</code> constructs a resolver that looks up any resolution
-    requests from the static <code class="code">hosts</code> hashtable instead of using the
-    system resolver.
 </div>
 </td></tr>
 <tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
@@ -52,18 +45,25 @@ Connection establishment using the
 </div>
 </td></tr>
 <tr><td class="module"><a href="Conduit_lwt_unix_net.html">Conduit_lwt_unix_net</a></td><td></td></tr>
+<tr><td class="module"><a href="Conduit_lwt_unix_net_ssl.html">Conduit_lwt_unix_net_ssl</a></td><td></td></tr>
+<tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
+Functorial connection establishment interface that is compatible with
+    the Mirage libraries.
+</div>
+</td></tr>
+<tr><td class="module"><a href="Conduit_resolver.html">Conduit_resolver</a></td><td></td></tr>
+<tr><td class="module"><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a></td><td></td></tr>
 <tr><td class="module"><a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a></td><td><div class="info">
 Use the Unix system name resolver via <code class="code">getaddrinfo</code> and
     <code class="code">getservbyname</code>
 </div>
 </td></tr>
-<tr><td class="module"><a href="Conduit_lwt_unix_net_ssl.html">Conduit_lwt_unix_net_ssl</a></td><td></td></tr>
-<tr><td class="module"><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a></td><td></td></tr>
-<tr><td class="module"><a href="Conduit.html">Conduit</a></td><td><div class="info">
-Interface for establishing reliable stream-oriented connections.
+<tr><td class="module"><a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a></td><td><div class="info">
+<code class="code">static hosts</code> constructs a resolver that looks up any resolution
+    requests from the static <code class="code">hosts</code> hashtable instead of using the
+    system resolver.
 </div>
 </td></tr>
-<tr><td class="module"><a href="Conduit_resolver.html">Conduit_resolver</a></td><td></td></tr>
 <tr><td class="module"><a href="Conduit_trie.html">Conduit_trie</a></td><td><div class="info">
 A Radix tree mapping strings to <code class="code">'a</code>.
 </div>

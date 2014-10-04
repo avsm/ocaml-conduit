@@ -7,16 +7,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
 <link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_net" rel="Chapter" href="Conduit_lwt_unix_net.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_lwt_unix_net_ssl" rel="Chapter" href="Conduit_lwt_unix_net_ssl.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
 <link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
+<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
+<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
+<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
 <link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Index of types</title>
 </head>
 <body>
@@ -28,19 +28,19 @@
 <tr><td><a href="Conduit_async.html#TYPEaddr">addr</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>C</td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEclient">client</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td><div class="info">
-Set of supported client connections that are supported by this module.
-</div>
-</td></tr>
 <tr><td><a href="Conduit_mirage.html#TYPEclient">client</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td><div class="info">
 Configuration for a single client connection
 </div>
 </td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEclient">client</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td><div class="info">
+Set of supported client connections that are supported by this module.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEctx">ctx</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>E</td></tr>
 <tr><td><a href="Conduit.html#TYPEendp">endp</a> [<a href="Conduit.html">Conduit</a>]</td>
@@ -51,16 +51,22 @@ End points that can potentially be connected to.
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#TYPEerror">error</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>F</td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEflow">flow</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
-<tr><td align="left"><br>I</td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEic">ic</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
+<tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEic">ic</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEic">ic</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit_async.html#TYPEic">ic</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_mirage.S.html#TYPEio">io</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEio">io</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_async.html#TYPEio">io</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit.RESOLVER.html#TYPEio">io</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
 <td><div class="info">
@@ -68,16 +74,10 @@ Abstract type of the cooperative threading library used, normally
       defined via the <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> module type
 </div>
 </td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEio">io</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
-<tr><td><a href="Conduit_mirage.S.html#TYPEio">io</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
-<td></td></tr>
-<tr><td><a href="Conduit_async.html#TYPEio">io</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br>O</td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEoc">oc</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEoc">oc</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEoc">oc</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_async.html#TYPEoc">oc</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
@@ -95,14 +95,14 @@ A rewrite function resolves a <a href="Conduit.RESOLVER.html#TYPEsvc">service</a
 </div>
 </td></tr>
 <tr><td align="left"><br>S</td></tr>
-<tr><td><a href="Conduit_lwt_unix.html#TYPEserver">server</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td><div class="info">
-Set of supported listening mechanisms that are supported by this module.
-</div>
-</td></tr>
 <tr><td><a href="Conduit_mirage.html#TYPEserver">server</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td><div class="info">
 Configuration for listening on a server port.
+</div>
+</td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEserver">server</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td><div class="info">
+Set of supported listening mechanisms that are supported by this module.
 </div>
 </td></tr>
 <tr><td><a href="Conduit_async.html#TYPEserver">server</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
@@ -128,13 +128,6 @@ Abstract type for a service entry, which maps a URI scheme into
 <tr><td align="left"><br>T</td></tr>
 <tr><td><a href="Conduit_trie.html#TYPEt">t</a> [<a href="Conduit_trie.html">Conduit_trie</a>]</td>
 <td></td></tr>
-<tr><td><a href="Conduit.RESOLVER.html#TYPEt">t</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
-<td><div class="info">
-State handle for a running resolver
-</div>
-</td></tr>
-<tr><td><a href="Conduit.IO.html#TYPEt">t</a> [<a href="Conduit.IO.html">Conduit.IO</a>]</td>
-<td></td></tr>
 <tr><td><a href="Conduit_resolver_mirage.Make.html#TYPEt">t</a> [<a href="Conduit_resolver_mirage.Make.html">Conduit_resolver_mirage.Make</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
@@ -142,6 +135,13 @@ State handle for a running resolver
 Type of a single connection
 </div>
 </td></tr>
+<tr><td><a href="Conduit.RESOLVER.html#TYPEt">t</a> [<a href="Conduit.RESOLVER.html">Conduit.RESOLVER</a>]</td>
+<td><div class="info">
+State handle for a running resolver
+</div>
+</td></tr>
+<tr><td><a href="Conduit.IO.html#TYPEt">t</a> [<a href="Conduit.IO.html">Conduit.IO</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEtls_server_key">tls_server_key</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>V</td></tr>
