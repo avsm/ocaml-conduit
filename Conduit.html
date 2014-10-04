@@ -35,19 +35,23 @@ Interface for establishing reliable stream-oriented connections.
 
     This library abstracts the concerns of establishing connections to
     peers that may be running within the same host (e.g. in another
-    virtual machine) or on a remote host via TCP.  It consists of two
-    main components that are responsible for:
+    virtual machine) or on a remote host via TCP.  It consists of one
+    library that is responsible for establishing individual
+    connections, and a name resolver that maps URIs to endpoints.
 <p>
-<ul>
-<li>Establishing a single connection to a remote peer that is identified
-      by an <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> address.</li>
-<li>Resolving URIs into a list of <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> addresses that can then be
-      connected to by the transport layer.</li>
-</ul>
 
-    To ensure portability, the <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> addresses are translated into
-    concrete connections by separate modules that target <code class="code">Lwt_unix</code>,
-    <code class="code">Async</code> and <code class="code">Mirage</code>.
+    <h1 id="transport">Connection Establishment</h1> 
+<p>
+
+    Connections are created by identifying remote nodes by an <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> address.
+    To ensure portability, the <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> values are translated into concrete
+    connections by separate modules that target <code class="code">Lwt_unix</code>, <code class="code">Async</code> and <code class="code">Mirage</code>.
+    This lets those backends use the appropriate local technique for creating the
+    connection (such as using OpenSSL on Unix, or a pure OCaml TLS+TCP
+    implementation on Mirage, or some other combination).
+<p>
+
+    The modules dealing with connection establishment are:
 <p>
 
     <br>
@@ -62,6 +66,35 @@ Use the configuration of the server to interpret how to handle a
 <tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
 Functorial interface that is compatible with the Mirage
     module types.
+</div>
+</td></tr>
+</table>
+
+<p>
+
+    <h1 id="1_NameResolution">Name Resolution</h1>
+<p>
+
+    This deals with resolving URIs into a list of <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a> addresses that can
+    then be connected to by the <code class="code">transport</code> modules.  The name resolver
+    conforms to the <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> module type below.
+<p>
+
+    The OS-specific modules that handle name resolution are:
+<p>
+
+    <br>
+<table class="indextable">
+<tr><td class="module"><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a></td><td></td></tr>
+<tr><td class="module"><a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a></td><td><div class="info">
+Use the Unix system name resolver via <code class="code">getaddrinfo</code> and
+    <code class="code">getservbyname</code>
+</div>
+</td></tr>
+<tr><td class="module"><a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a></td><td><div class="info">
+<code class="code">static hosts</code> constructs a resolver that looks up any resolution
+    requests from the static <code class="code">hosts</code> hashtable instead of using the
+    system resolver.
 </div>
 </td></tr>
 </table>
