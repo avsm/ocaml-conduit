@@ -26,7 +26,10 @@ let is_tls_service =
 let get_host uri =
   match Uri.host uri with
   | None -> "localhost"
-  | Some host -> host
+  | Some host -> 
+      match Ipaddr.of_string host with
+      | Some ip -> Ipaddr.to_string ip
+      | None -> host
 
 let get_port service uri =
   match Uri.port uri with
@@ -88,4 +91,15 @@ module Make(DNS:Dns_resolver_mirage.S) = struct
     let rewrites = ["", stub_resolver t] in
     Conduit_resolver_lwt.init ~service ~rewrites ()
 
+end
+
+module type PEER = sig
+  type t
+  type flow
+  type uuid
+  type port
+
+  val register : uuid -> t Lwt.t
+  val accept : t -> flow Lwt.t
+  val connect : t -> remote_name:uuid -> port:port -> flow Lwt.t
 end
