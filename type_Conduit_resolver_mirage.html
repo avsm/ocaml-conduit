@@ -15,7 +15,8 @@
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html"><title>Conduit URI resolution : Conduit_resolver_mirage</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
+<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_resolver_mirage</title>
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
@@ -30,4 +31,22 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?ns:<span class="constructor">Ipaddr</span>.<span class="constructor">V4</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?dns_port:int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">DNS</span>.stack&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Conduit_resolver_lwt</span>.t<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">PEER</span>&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;flow<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;uuid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;port<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;register&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.uuid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.t&nbsp;<span class="constructor">Lwt</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;accept&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.flow&nbsp;<span class="constructor">Lwt</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;connect&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remote_name:<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.uuid&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port:<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.port&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Conduit_resolver_mirage</span>.<span class="constructor">PEER</span>.flow&nbsp;<span class="constructor">Lwt</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
 <span class="keyword">end</span></code></body></html>
