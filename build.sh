@@ -23,7 +23,7 @@ HAVE_LWT_SSL=`ocamlfind query lwt.ssl 2>/dev/null || true`
 HAVE_MIRAGE=`ocamlfind query mirage-types dns.mirage tcpip 2>/dev/null || true`
 HAVE_VCHAN=`ocamlfind query vchan 2>/dev/null || true`
 HAVE_VCHAN_LWT=`ocamlfind query vchan.lwt xen-evtchn.unix 2>/dev/null || true`
-HAVE_XEN=`ocamlfind query mirage-xen 2>/dev/null || true`
+HAVE_XEN=`ocamlfind query mirage-xen xenstore_transport 2>/dev/null || true`
 
 add_target () {
   TARGETS="$TARGETS lib/$1.cmxs lib/$1.cma lib/$1.cmxa"
@@ -36,7 +36,10 @@ add_pkg () {
 add_pkg "$SYNTAX_PKG"
 add_pkg "$BASE_PKG"
 add_target "conduit"
+rm -f lib/*.odocl
 rm -f _tags
+rm -rf _install
+mkdir -p _install
 
 echo 'true: syntax(camlp4o)' >> _tags
 
@@ -85,11 +88,15 @@ if [ "$HAVE_LWT" != "" ]; then
     echo Conduit_resolver_mirage >> lib/conduit-lwt-mirage.mllib
     LWT_MIRAGE_REQUIRES="mirage-types dns.mirage uri.services"
     if [ "$HAVE_VCHAN" != "" ]; then
+      echo "Building with Mirage Vchan support."
       LWT_MIRAGE_REQUIRES="$LWT_MIRAGE_REQUIRES vchan"
     fi
     if [ "$HAVE_XEN" != "" ]; then
+      echo "Building with Mirage Vchan/Xen support."
       LWT_MIRAGE_REQUIRES="$LWT_MIRAGE_REQUIRES mirage-xen vchan.xen"
+      echo 'true: define(HAVE_XEN)' >> _tags
       echo Conduit_xenstore >> lib/conduit-lwt-mirage.mllib
+      echo '"scripts/xenstore-conduit-init" {"xenstore-conduit-init"}' > _install/bin
     fi
     add_target "conduit-lwt-mirage"
     cp lib/conduit-lwt-mirage.mllib lib/conduit-lwt-mirage.odocl
@@ -98,7 +105,7 @@ if [ "$HAVE_LWT" != "" ]; then
 fi
 
 if [ "$HAVE_VCHAN" ]; then
-  echo "Build with Vchan support."
+  echo "Building with Vchan support."
   echo 'true: define(HAVE_VCHAN)' >> _tags
 fi 
 
@@ -109,7 +116,6 @@ if [ "$HAVE_VCHAN_LWT" != "" ]; then
 fi
 
 # Build all the ocamldoc
-rm -f lib/conduit-all.odocl
 cat lib/*.odocl > lib/conduit-all.odocl
 TARGETS="${TARGETS} lib/conduit-all.docdir/index.html"
 
@@ -132,6 +138,7 @@ sed \
 
 if [ "$1" = "true" ]; then
   B=_build/lib/
+  ls $B/*.cmi $B/*.cmt $B/*.cmti $B/*.cmx $B/*.cmxa $B/*.cma $B/*.cmxs $B/*.a > _install/lib
   ocamlfind remove conduit || true
   FILES=`ls -1 $B/*.cmi $B/*.cmt $B/*.cmti $B/*.cmx $B/*.cmxa $B/*.cma $B/*.cmxs $B/*.a 2>/dev/null || true`
   ocamlfind install conduit META $FILES

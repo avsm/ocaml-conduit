@@ -15,7 +15,7 @@
  *
 *)
 
-include Conduit_resolver_mirage.PEER with
-      type flow = Vchan_xen.t
-  and type uuid = string
-  and type port = string
+(** Establish Vchans via named endpoints in XenStore *)
+
+include Conduit_mirage.VCHAN_PEER
+  with type flow = Vchan_xen.t
