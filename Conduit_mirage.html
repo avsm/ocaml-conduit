@@ -5,28 +5,24 @@
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
 <link rel="previous" href="Conduit_lwt_unix_ssl.html">
-<link rel="next" href="Conduit_resolver.html">
+<link rel="next" href="Conduit_resolver_lwt.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
 <link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_mirage</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Conduit_lwt_unix_ssl.html" title="Conduit_lwt_unix_ssl">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Conduit_resolver.html" title="Conduit_resolver">Next</a>
+&nbsp;<a class="post" href="Conduit_resolver_lwt.html" title="Conduit_resolver_lwt">Next</a>
 </div>
 <h1>Module <a href="type_Conduit_mirage.html">Conduit_mirage</a></h1>
 
@@ -54,7 +50,7 @@ Configuration for a single client connection<br>
 </div>
 
 
-<pre><span id="TYPEserver"><span class="keyword">type</span> <code class="type"></code>server</span> = <code class="type">[ `TCP of [ `Port of int ] | `Vchan of int * <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> ]</code> </pre>
+<pre><span id="TYPEserver"><span class="keyword">type</span> <code class="type"></code>server</span> = <code class="type">[ `TCP of [ `Port of int ]<br>       | `Vchan of [ `Remote_domid of int ] * <a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> ]</code> </pre>
 <div class="info ">
 Configuration for listening on a server port.<br>
 </div>
@@ -64,6 +60,10 @@ Configuration for listening on a server port.<br>
 Module type of a Vchan endpoint
 </div>
 
+<pre><span class="keyword">module type</span> <a href="Conduit_mirage.PEER.html">PEER</a> = <code class="code">sig</code> <a href="Conduit_mirage.PEER.html">..</a> <code class="code">end</code></pre>
+<pre><span class="keyword">module type</span> <a href="Conduit_mirage.VCHAN_PEER.html">VCHAN_PEER</a> = <code class="type"><a href="Conduit_mirage.PEER.html">PEER</a></code><code class="type"> 
+  with type uuid = string
+   and type port = string</code></pre>
 <pre><span class="keyword">module</span> <a href="Conduit_mirage.Make_flow.html">Make_flow</a> <code class="code">(</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) </code> <code class="code">(</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) </code>: <code class="type">V1_LWT.FLOW</code><code class="type"> </code></pre><div class="info">
 Functor to construct a <code class="code">V1_LWT.FLOW</code> module that internally contains
     all of the supported transport mechanisms, such as TCPv4 and Vchan.

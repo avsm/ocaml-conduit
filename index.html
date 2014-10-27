@@ -8,26 +8,22 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
 <link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution</title>
 </head>
 <body>
 <h1>Conduit URI resolution</h1>
-The <a href="Conduit.html"><code class="code">Conduit</code></a> library abstracts the concerns of establishing connections to
+The <code class="code">Conduit</code> library abstracts the concerns of establishing connections to
 peers that may be running within the same host (e.g. in another virtual
 machine) or on a remote host via TCP.  It consists of:
 <p>
 <ul>
-<li>The <a href="Conduit.html"><code class="code">Conduit</code></a> module with basic type definitions</li>
+<li>The <code class="code">Conduit</code> module with basic type definitions</li>
 <li>Modules for establishing individual connections</li>
 <li>Modules for name resolvers that maps URIs to endpoints</li>
 </ul>
@@ -36,8 +32,8 @@ machine) or on a remote host via TCP.  It consists of:
 <p>
 
 Connections are created by identifying remote nodes using an
-<a href="Conduit.html#TYPEendp">endp</a> value.  To ensure portability, the
-<a href="Conduit.html#TYPEendp">endpoints</a> are translated into concrete connections by separate
+endp value.  To ensure portability, the
+endpoints are translated into concrete connections by separate
 modules that target <code class="code">Lwt_unix</code>, <code class="code">Async</code> and <code class="code">Mirage</code>.  This lets those backends
 use the appropriate local technique for creating the connection (such as using
 OpenSSL on Unix, or a pure OCaml TLS+TCP implementation on Mirage, or some
@@ -52,11 +48,7 @@ Connection establishment using the
     <a href="http://ocsigen.org/lwt/api/Lwt_unix">Lwt_unix</a> library
 </div>
 </td></tr>
-<tr><td class="module"><a href="Conduit_async.html">Conduit_async</a></td><td><div class="info">
-Connection establishment using the
-    <a href="https://github.com/janestreet/async">Async</a> library
-</div>
-</td></tr>
+<tr><td class="module">Conduit_async</td><td></td></tr>
 <tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
 Functorial connection establishment interface that is compatible with
     the Mirage libraries.
@@ -69,11 +61,11 @@ Functorial connection establishment interface that is compatible with
 <h2 id="resolution">Name Resolution</h2>
 <p>
 
-This deals with resolving URIs into a list of <a href="Conduit.html#TYPEendp">endp</a> addresses that can
+This deals with resolving URIs into a list of endp addresses that can
 then be connected to by the connection establishment modules.
 <p>
 
-All of the name resolvers conform to the <a href="Conduit.RESOLVER.html"><code class="code">Conduit.RESOLVER</code></a> module type.
+All of the name resolvers conform to the <code class="code">Conduit.RESOLVER</code> module type.
 The OS-specific implementations of this interface are: 
 <br>
 <table class="indextable">

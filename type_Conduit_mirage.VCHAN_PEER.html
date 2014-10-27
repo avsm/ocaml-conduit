@@ -12,12 +12,12 @@
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_xenstore</title>
+<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_mirage.VCHAN_PEER</title>
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;flow&nbsp;=&nbsp;<span class="constructor">Vchan_xen</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;flow<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;uuid&nbsp;=&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;port&nbsp;=&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;register&nbsp;:&nbsp;uuid&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="constructor">Lwt</span>.t<br>

@@ -9,16 +9,12 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
 <link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_resolver_lwt.IO</title>
 </head>
 <body>
@@ -26,13 +22,8 @@
 &nbsp;</div>
 <h1>Module <a href="type_Conduit_resolver_lwt.IO.html">Conduit_resolver_lwt.IO</a></h1>
 
-<pre><span class="keyword">module</span> IO: <code class="type"><a href="Conduit.IO.html">Conduit.IO</a></code><code class="type">  with type 'a t = 'a Lwt.t</code></pre><div class="info module top">
-IO module compatible with <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> that uses Lwt<br>
+<pre><span class="keyword">module</span> IO: <code class="type">Conduit.IO</code><code class="type">  with type 'a t = 'a Lwt.t</code></pre><div class="info module top">
+IO module compatible with <code class="code">Conduit.IO</code> that uses Lwt<br>
 </div>
 <hr width="100%">
-
-<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">+'a</code> t</span> </pre>
-
-
-<pre><span id="VAL(>>=)"><span class="keyword">val</span> (&gt;&gt;=)</span> : <code class="type">'a <a href="Conduit.IO.html#TYPEt">t</a> -> ('a -> 'b <a href="Conduit.IO.html#TYPEt">t</a>) -> 'b <a href="Conduit.IO.html#TYPEt">t</a></code></pre>
-<pre><span id="VALreturn"><span class="keyword">val</span> return</span> : <code class="type">'a -> 'a <a href="Conduit.IO.html#TYPEt">t</a></code></pre></body></html>
+</body></html>

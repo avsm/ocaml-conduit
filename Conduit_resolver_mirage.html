@@ -5,28 +5,24 @@
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
 <link rel="previous" href="Conduit_resolver_lwt_unix.html">
-<link rel="next" href="Conduit_trie.html">
+<link rel="next" href="Conduit_xenstore.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
 <link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_resolver_mirage</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Conduit_resolver_lwt_unix.html" title="Conduit_resolver_lwt_unix">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Conduit_trie.html" title="Conduit_trie">Next</a>
+&nbsp;<a class="post" href="Conduit_xenstore.html" title="Conduit_xenstore">Next</a>
 </div>
 <h1>Module <a href="type_Conduit_resolver_mirage.html">Conduit_resolver_mirage</a></h1>
 
@@ -35,7 +31,7 @@ Functorial interface for resolving URIs to endpoints.<br>
 </div>
 <hr width="100%">
 
-<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, port:int -> <a href="Conduit.html#TYPEendp">Conduit.endp</a>) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre><div class="info ">
+<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, port:int -> Conduit.endp) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre><div class="info ">
 <code class="code">static hosts</code> constructs a resolver that looks up any resolution
     requests from the static <code class="code">hosts</code> hashtable instead of using the
     system resolver.<br>
@@ -46,10 +42,10 @@ Functorial interface for resolving URIs to endpoints.<br>
     maps <code class="code">localhost</code> to <code class="code">127.0.0.1</code>, and fails on all other hostnames.<br>
 </div>
 
-<pre><span class="keyword">module</span> <a href="Conduit_resolver_mirage.Make.html">Make</a> <code class="code">(</code><code class="code">DNS</code><code class="code"> : </code><code class="type">Dns_resolver_mirage.S</code><code class="code">) </code>: <code class="code">sig</code> <a href="Conduit_resolver_mirage.Make.html">..</a> <code class="code">end</code></pre><div class="info">
+<pre><span class="keyword">module</span> <a href="Conduit_resolver_mirage.Localhost_peer.html">Localhost_peer</a>: <code class="type"><a href="Conduit_mirage.VCHAN_PEER.html">Conduit_mirage.VCHAN_PEER</a></code><code class="type"> </code></pre>
+<pre><span class="keyword">module</span> <a href="Conduit_resolver_mirage.Make.html">Make</a> <code class="code">(</code><code class="code">DNS</code><code class="code"> : </code><code class="type">Dns_resolver_mirage.S</code><code class="code">) </code> <code class="code">(</code><code class="code">Peer</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.VCHAN_PEER.html">Conduit_mirage.VCHAN_PEER</a></code><code class="code">) </code>: <code class="code">sig</code> <a href="Conduit_resolver_mirage.Make.html">..</a> <code class="code">end</code></pre><div class="info">
 Given a DNS resolver <a href="https://github.com/mirage/ocaml-dns">implementation</a>,
     provide a <a href="Conduit_resolver_lwt.html"><code class="code">Conduit_resolver_lwt</code></a> that can perform DNS lookups to return
     endpoints.
 </div>
-
-<pre><span class="keyword">module type</span> <a href="Conduit_resolver_mirage.PEER.html">PEER</a> = <code class="code">sig</code> <a href="Conduit_resolver_mirage.PEER.html">..</a> <code class="code">end</code></pre></body></html>
+</body></html>

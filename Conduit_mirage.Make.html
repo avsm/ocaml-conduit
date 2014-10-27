@@ -10,16 +10,12 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
 <link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_mirage.Make</title>
 </head>
 <body>
@@ -72,10 +68,10 @@
 <pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type"><a href="Conduit_mirage.S.html#TYPEstack">stack</a> -> <a href="Conduit_mirage.S.html#TYPEctx">ctx</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
 <pre><span id="VALconnect"><span class="keyword">val</span> connect</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit_mirage.html#TYPEclient">Conduit_mirage.client</a> -><br>       (<a href="Conduit_mirage.S.html#TYPEflow">flow</a> * <a href="Conduit_mirage.S.html#TYPEic">ic</a> * <a href="Conduit_mirage.S.html#TYPEoc">oc</a>)<br>       <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
 <pre><span id="VALserve"><span class="keyword">val</span> serve</span> : <code class="type">?timeout:int -><br>       ?stop:unit <a href="Conduit_mirage.S.html#TYPEio">io</a> -><br>       ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       mode:<a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> -><br>       (<a href="Conduit_mirage.S.html#TYPEflow">flow</a> -><br>        <a href="Conduit_mirage.S.html#TYPEic">ic</a> -> <a href="Conduit_mirage.S.html#TYPEoc">oc</a> -> unit <a href="Conduit_mirage.S.html#TYPEio">io</a>) -><br>       unit <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
-<pre><span id="VALendp_to_client"><span class="keyword">val</span> endp_to_client</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_mirage.html#TYPEclient">Conduit_mirage.client</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre><div class="info ">
+<pre><span id="VALendp_to_client"><span class="keyword">val</span> endp_to_client</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       Conduit.endp -> <a href="Conduit_mirage.html#TYPEclient">Conduit_mirage.client</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre><div class="info ">
 Use the configuration of the server to interpret how to handle a
       particular endpoint from the resolver into a concrete
       implementation of type <code class="code">client</code><br>
 </div>
 
-<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre></body></html>
+<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       Conduit.endp -> <a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre></body></html>

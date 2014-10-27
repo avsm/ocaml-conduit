@@ -11,16 +11,12 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver" rel="Chapter" href="Conduit_resolver.html">
 <link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
 <link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
 <link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
 <link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_resolver_lwt_unix</title>
 </head>
 <body>
@@ -40,7 +36,7 @@ Use the Unix system name resolver via <code class="code">getaddrinfo</code> and
     <code class="code">getservbyname</code><br>
 </div>
 
-<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, <a href="Conduit.html#TYPEendp">Conduit.endp</a>) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre><div class="info ">
+<pre><span id="VALstatic"><span class="keyword">val</span> static</span> : <code class="type">(string, Conduit.endp) Hashtbl.t -> Conduit_resolver_lwt.t</code></pre><div class="info ">
 <code class="code">static hosts</code> constructs a resolver that looks up any resolution
     requests from the static <code class="code">hosts</code> hashtable instead of using the
     system resolver.<br>
