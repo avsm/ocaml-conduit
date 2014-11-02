@@ -10,13 +10,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_mirage.Make</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
+<link title="Resolver" rel="Chapter" href="Resolver.html">
+<link title="Resolver_lwt" rel="Chapter" href="Resolver_lwt.html">
+<link title="Resolver_lwt_unix" rel="Chapter" href="Resolver_lwt_unix.html">
+<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Conduit_mirage.Make</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Conduit_mirage.Make_flow.html" title="Conduit_mirage.Make_flow">Previous</a>
@@ -24,7 +27,8 @@
 &nbsp;</div>
 <h1>Functor <a href="type_Conduit_mirage.Make.html">Conduit_mirage.Make</a></h1>
 
-<pre><span class="keyword">module</span> Make <code class="code">(</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.STACKV4</code><code class="code">) </code> <code class="code">(</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) </code>: <code class="type"><a href="Conduit_mirage.S.html">S</a></code><code class="type">  with type stack = S.t</code></pre><table border="0" cellpadding="3" width="100%">
+<pre><span class="keyword">module</span> Make <code class="code">(</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.STACKV4</code><code class="code">) </code> <code class="code">(</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.VCHAN_PEER.html">VCHAN_PEER</a></code><code class="code">) </code>: <code class="type"><a href="Conduit_mirage.S.html">S</a></code><code class="type">  with type stack = S.t
+     and type peer = V.t</code></pre><table border="0" cellpadding="3" width="100%">
 <tr>
 <td align="left" valign="top" width="1%%"><b>Parameters: </b></td>
 <td>
@@ -38,7 +42,7 @@
 <td align="center" valign="top" width="15%">
 <code>V</code></td>
 <td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code>
+<td><code class="type"><a href="Conduit_mirage.VCHAN_PEER.html">VCHAN_PEER</a></code>
 </table>
 </td>
 </tr>
@@ -61,17 +65,20 @@
 <pre><span id="TYPEstack"><span class="keyword">type</span> <code class="type"></code>stack</span> </pre>
 
 
+<pre><span id="TYPEpeer"><span class="keyword">type</span> <code class="type"></code>peer</span> </pre>
+
+
 <pre><span id="TYPEctx"><span class="keyword">type</span> <code class="type"></code>ctx</span> </pre>
 
 
 <pre><span id="VALdefault_ctx"><span class="keyword">val</span> default_ctx</span> : <code class="type"><a href="Conduit_mirage.S.html#TYPEctx">ctx</a></code></pre>
-<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type"><a href="Conduit_mirage.S.html#TYPEstack">stack</a> -> <a href="Conduit_mirage.S.html#TYPEctx">ctx</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?peer:<a href="Conduit_mirage.S.html#TYPEpeer">peer</a> -><br>       ?stack:<a href="Conduit_mirage.S.html#TYPEstack">stack</a> -><br>       unit -> <a href="Conduit_mirage.S.html#TYPEctx">ctx</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
 <pre><span id="VALconnect"><span class="keyword">val</span> connect</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit_mirage.html#TYPEclient">Conduit_mirage.client</a> -><br>       (<a href="Conduit_mirage.S.html#TYPEflow">flow</a> * <a href="Conduit_mirage.S.html#TYPEic">ic</a> * <a href="Conduit_mirage.S.html#TYPEoc">oc</a>)<br>       <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
 <pre><span id="VALserve"><span class="keyword">val</span> serve</span> : <code class="type">?timeout:int -><br>       ?stop:unit <a href="Conduit_mirage.S.html#TYPEio">io</a> -><br>       ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       mode:<a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> -><br>       (<a href="Conduit_mirage.S.html#TYPEflow">flow</a> -><br>        <a href="Conduit_mirage.S.html#TYPEic">ic</a> -> <a href="Conduit_mirage.S.html#TYPEoc">oc</a> -> unit <a href="Conduit_mirage.S.html#TYPEio">io</a>) -><br>       unit <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
-<pre><span id="VALendp_to_client"><span class="keyword">val</span> endp_to_client</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       Conduit.endp -> <a href="Conduit_mirage.html#TYPEclient">Conduit_mirage.client</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre><div class="info ">
+<pre><span id="VALendp_to_client"><span class="keyword">val</span> endp_to_client</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_mirage.html#TYPEclient">Conduit_mirage.client</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre><div class="info ">
 Use the configuration of the server to interpret how to handle a
       particular endpoint from the resolver into a concrete
       implementation of type <code class="code">client</code><br>
 </div>
 
-<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       Conduit.endp -> <a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre></body></html>
+<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre></body></html>

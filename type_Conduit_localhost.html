@@ -15,15 +15,15 @@
 <link title="Resolver" rel="Chapter" href="Resolver.html">
 <link title="Resolver_lwt" rel="Chapter" href="Resolver_lwt.html">
 <link title="Resolver_lwt_unix" rel="Chapter" href="Resolver_lwt_unix.html">
-<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Conduit_mirage.VCHAN_PEER</title>
+<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Conduit_localhost</title>
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;flow<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;uuid&nbsp;=&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;port&nbsp;=&nbsp;vchan_port<br>
-&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Endpoint</span>&nbsp;:&nbsp;<span class="constructor">ENDPOINT</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;port&nbsp;=&nbsp;<span class="constructor">Conduit_mirage</span>.vchan_port<br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Endpoint</span>&nbsp;:&nbsp;<span class="constructor">Conduit_mirage</span>.<span class="constructor">ENDPOINT</span><br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;register&nbsp;:&nbsp;uuid&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="constructor">Lwt</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;listen&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Conduit</span>.endp&nbsp;<span class="constructor">Lwt_stream</span>.t&nbsp;<span class="constructor">Lwt</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;connect&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;remote_name:uuid&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;port:port&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Conduit</span>.endp&nbsp;<span class="constructor">Lwt</span>.t<br>

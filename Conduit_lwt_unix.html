@@ -4,22 +4,27 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
+<link rel="previous" href="Conduit_localhost.html">
 <link rel="next" href="Conduit_lwt_unix_ssl.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_lwt_unix</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
+<link title="Resolver" rel="Chapter" href="Resolver.html">
+<link title="Resolver_lwt" rel="Chapter" href="Resolver_lwt.html">
+<link title="Resolver_lwt_unix" rel="Chapter" href="Resolver_lwt_unix.html">
+<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Conduit_lwt_unix</title>
 </head>
 <body>
-<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+<div class="navbar"><a class="pre" href="Conduit_localhost.html" title="Conduit_localhost">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="Conduit_lwt_unix_ssl.html" title="Conduit_lwt_unix_ssl">Next</a>
 </div>
 <h1>Module <a href="type_Conduit_lwt_unix.html">Conduit_lwt_unix</a></h1>
@@ -30,13 +35,13 @@ Connection establishment using the
 </div>
 <hr width="100%">
 
-<pre><span id="TYPEclient"><span class="keyword">type</span> <code class="type"></code>client</span> = <code class="type">[ `OpenSSL of string * Ipaddr.t * int<br>       | `TCP of Ipaddr.t * int<br>       | `Unix_domain_socket of string<br>       | `Vchan of int * string ]</code> </pre>
+<pre><span id="TYPEclient"><span class="keyword">type</span> <code class="type"></code>client</span> = <code class="type">[ `OpenSSL of string * Ipaddr.t * int<br>       | `TCP of Ipaddr.t * int<br>       | `Unix_domain_socket of string<br>       | `Vchan_direct of int * string<br>       | `Vchan_domain_socket of string * string ]</code> </pre>
 <div class="info ">
 Set of supported client connections that are supported by this module.<br>
 </div>
 
 
-<pre><span id="TYPEserver"><span class="keyword">type</span> <code class="type"></code>server</span> = <code class="type">[ `OpenSSL of<br>           [ `Crt_file_path of string ] * [ `Key_file_path of string ] *<br>           [ `No_password | `Password of bool -> string ] * [ `Port of int ]<br>       | `TCP of [ `Port of int ]<br>       | `Unix_domain_socket of [ `File of string ]<br>       | `Vchan of int * string ]</code> </pre>
+<pre><span id="TYPEserver"><span class="keyword">type</span> <code class="type"></code>server</span> = <code class="type">[ `OpenSSL of<br>           [ `Crt_file_path of string ] * [ `Key_file_path of string ] *<br>           [ `No_password | `Password of bool -> string ] * [ `Port of int ]<br>       | `TCP of [ `Port of int ]<br>       | `Unix_domain_socket of [ `File of string ]<br>       | `Vchan_direct of int * string<br>       | `Vchan_domain_socket of string * string ]</code> </pre>
 <div class="info ">
 Set of supported listening mechanisms that are supported by this module.<br>
 </div>
@@ -51,10 +56,93 @@ Set of supported listening mechanisms that are supported by this module.<br>
 <pre><span id="TYPEoc"><span class="keyword">type</span> <code class="type"></code>oc</span> = <code class="type">Lwt_io.output_channel</code> </pre>
 
 
-<pre><span id="TYPEflow"><span class="keyword">type</span> <code class="type"></code>flow</span> </pre>
-<div class="info ">
-Type of an established connection<br>
-</div>
+<pre><code><span id="TYPEtcp_flow"><span class="keyword">type</span> <code class="type"></code>tcp_flow</span> = private {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtcp_flow.fd">fd</span>&nbsp;: <code class="type">Lwt_unix.file_descr Sexplib.Conv.sexp_opaque</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtcp_flow.ip">ip</span>&nbsp;: <code class="type">Ipaddr.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtcp_flow.port">port</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEdomain_flow"><span class="keyword">type</span> <code class="type"></code>domain_flow</span> = private {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdomain_flow.fd">fd</span>&nbsp;: <code class="type">Lwt_unix.file_descr Sexplib.Conv.sexp_opaque</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdomain_flow.path">path</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEvchan_flow"><span class="keyword">type</span> <code class="type"></code>vchan_flow</span> = private {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvchan_flow.domid">domid</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvchan_flow.port">port</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEflow"><span class="keyword">type</span> <code class="type"></code>flow</span> = private </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTflow.TCP"><span class="constructor">TCP</span></span> <span class="keyword">of</span> <code class="type"><a href="Conduit_lwt_unix.html#TYPEtcp_flow">tcp_flow</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTflow.Domain_socket"><span class="constructor">Domain_socket</span></span> <span class="keyword">of</span> <code class="type"><a href="Conduit_lwt_unix.html#TYPEdomain_flow">domain_flow</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTflow.Vchan"><span class="constructor">Vchan</span></span> <span class="keyword">of</span> <code class="type"><a href="Conduit_lwt_unix.html#TYPEvchan_flow">vchan_flow</a></code></code></td>
+
+</tr></table>
+
 
 
 <pre><span id="TYPEtls_server_key"><span class="keyword">type</span> <code class="type"></code>tls_server_key</span> = <code class="type">[ `None<br>       | `OpenSSL of<br>           [ `Crt_file_path of string ] * [ `Key_file_path of string ] *<br>           [ `No_password | `Password of bool -> string ] ]</code> </pre>
@@ -95,17 +183,17 @@ Default context that listens on all source addresses with
     lightweight thread that is invoked via the <code class="code">fn</code> callback<br>
 </div>
 
-<pre><span id="VALendp_of_flow"><span class="keyword">val</span> endp_of_flow</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> -> Conduit.endp</code></pre><div class="info ">
-<code class="code">endp_of_flow flow</code> retrieves the original <code class="code">Conduit.endp</code>
+<pre><span id="VALendp_of_flow"><span class="keyword">val</span> endp_of_flow</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> -> <a href="Conduit.html#TYPEendp">Conduit.endp</a></code></pre><div class="info ">
+<code class="code">endp_of_flow flow</code> retrieves the original <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a>
     from the established <code class="code">flow</code><br>
 </div>
 
-<pre><span id="VALendp_to_client"><span class="keyword">val</span> endp_to_client</span> : <code class="type">ctx:<a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> -><br>       Conduit.endp -> <a href="Conduit_lwt_unix.html#TYPEclient">client</a> <a href="Conduit_lwt_unix.html#TYPEio">io</a></code></pre><div class="info ">
+<pre><span id="VALendp_to_client"><span class="keyword">val</span> endp_to_client</span> : <code class="type">ctx:<a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_lwt_unix.html#TYPEclient">client</a> <a href="Conduit_lwt_unix.html#TYPEio">io</a></code></pre><div class="info ">
 <code class="code">endp_to_client ~ctx endp</code> converts an <code class="code">endp</code> into a
     a concrete connection mechanism of type <code class="code">client</code><br>
 </div>
 
-<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> -><br>       Conduit.endp -> <a href="Conduit_lwt_unix.html#TYPEserver">server</a> <a href="Conduit_lwt_unix.html#TYPEio">io</a></code></pre><div class="info ">
+<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_lwt_unix.html#TYPEserver">server</a> <a href="Conduit_lwt_unix.html#TYPEio">io</a></code></pre><div class="info ">
 <code class="code">endp_to_server ~ctx endp</code> converts an <code class="code">endp</code> into a
     a concrete connection mechanism of type <code class="code">client</code><br>
 </div>
@@ -119,10 +207,9 @@ Set of supported listening mechanisms that are supported by this module.<br>
 
 <pre><span id="VAL__server_of_sexp__"><span class="keyword">val</span> __server_of_sexp__</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEserver">server</a></code></pre>
 <pre><span id="VALsexp_of_server"><span class="keyword">val</span> sexp_of_server</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEserver">server</a> -> Sexplib.Sexp.t</code></pre>
-<pre><span id="VALflow_of_sexp"><span class="keyword">val</span> flow_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="Conduit_lwt_unix.html#TYPEflow">flow</a></code></pre><div class="info ">
-Type of an established connection<br>
-</div>
-
+<pre><span id="VALsexp_of_tcp_flow"><span class="keyword">val</span> sexp_of_tcp_flow</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEtcp_flow">tcp_flow</a> -> Sexplib.Sexp.t</code></pre>
+<pre><span id="VALsexp_of_domain_flow"><span class="keyword">val</span> sexp_of_domain_flow</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEdomain_flow">domain_flow</a> -> Sexplib.Sexp.t</code></pre>
+<pre><span id="VALsexp_of_vchan_flow"><span class="keyword">val</span> sexp_of_vchan_flow</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEvchan_flow">vchan_flow</a> -> Sexplib.Sexp.t</code></pre>
 <pre><span id="VALsexp_of_flow"><span class="keyword">val</span> sexp_of_flow</span> : <code class="type"><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> -> Sexplib.Sexp.t</code></pre><br>
 Type describing where to locate an OpenSSL-format
     key in the filesystem<br>
@@ -146,7 +233,7 @@ Default context that listens on all source addresses with
     determined.  Every connection will be served in a new
     lightweight thread that is invoked via the <code class="code">fn</code> callback<br>
 <br>
-<code class="code">endp_of_flow flow</code> retrieves the original <code class="code">Conduit.endp</code>
+<code class="code">endp_of_flow flow</code> retrieves the original <a href="Conduit.html#TYPEendp"><code class="code">Conduit.endp</code></a>
     from the established <code class="code">flow</code><br>
 <br>
 <code class="code">endp_to_client ~ctx endp</code> converts an <code class="code">endp</code> into a

@@ -7,13 +7,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Index of modules</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
+<link title="Resolver" rel="Chapter" href="Resolver.html">
+<link title="Resolver_lwt" rel="Chapter" href="Resolver_lwt.html">
+<link title="Resolver_lwt_unix" rel="Chapter" href="Resolver_lwt_unix.html">
+<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Index of modules</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
@@ -22,6 +25,13 @@
 <table>
 <tr><td align="left"><br>C</td></tr>
 <tr><td><a href="Conduit_lwt_unix_ssl.Client.html">Client</a> [<a href="Conduit_lwt_unix_ssl.html">Conduit_lwt_unix_ssl</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit.html">Conduit</a> </td>
+<td><div class="info">
+Interface for establishing reliable stream-oriented connections.
+</div>
+</td></tr>
+<tr><td><a href="Conduit_localhost.html">Conduit_localhost</a> </td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a> </td>
 <td><div class="info">
@@ -40,44 +50,35 @@ Functorial connection establishment interface that is compatible with
     the Mirage libraries.
 </div>
 </td></tr>
-<tr><td><a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a> </td>
+<tr><td><a href="Conduit_trie.html">Conduit_trie</a> </td>
 <td><div class="info">
-Resolve URIs to endpoints using the <a href="http://ocsigen.org/lwt">Lwt</a> library
+Radix tree that can do longest-prefix searches on string keys
 </div>
 </td></tr>
-<tr><td><a href="Conduit_resolver_lwt_unix.html">Conduit_resolver_lwt_unix</a> </td>
-<td><div class="info">
-Resolve URIs to endpoints using Unix system calls
-</div>
-</td></tr>
-<tr><td><a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a> </td>
-<td><div class="info">
-Functorial interface for resolving URIs to endpoints.
-</div>
-</td></tr>
-<tr><td><a href="Conduit_xenstore.html">Conduit_xenstore</a> </td>
-<td><div class="info">
-Establish Vchans via named endpoints in XenStore
-</div>
-</td></tr>
+<tr><td align="left"><br>E</td></tr>
+<tr><td><a href="Conduit_mirage.PEER.Endpoint.html">Endpoint</a> [<a href="Conduit_mirage.PEER.html">Conduit_mirage.PEER</a>]</td>
+<td></td></tr>
 <tr><td align="left"><br>F</td></tr>
 <tr><td><a href="Conduit_mirage.S.Flow.html">Flow</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>I</td></tr>
-<tr><td><a href="Conduit_resolver_lwt.IO.html">IO</a> [<a href="Conduit_resolver_lwt.html">Conduit_resolver_lwt</a>]</td>
+<tr><td><a href="Resolver_lwt.IO.html">IO</a> [<a href="Resolver_lwt.html">Resolver_lwt</a>]</td>
 <td><div class="info">
-IO module compatible with <code class="code">Conduit.IO</code> that uses Lwt
+IO module compatible with <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a> that uses Lwt
 </div>
 </td></tr>
-<tr><td align="left"><br>L</td></tr>
-<tr><td><a href="Conduit_resolver_mirage.Localhost_peer.html">Localhost_peer</a> [<a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br>M</td></tr>
-<tr><td><a href="Conduit_resolver_mirage.Make.html">Make</a> [<a href="Conduit_resolver_mirage.html">Conduit_resolver_mirage</a>]</td>
+<tr><td><a href="Resolver_mirage.Make.html">Make</a> [<a href="Resolver_mirage.html">Resolver_mirage</a>]</td>
 <td><div class="info">
 Given a DNS resolver <a href="https://github.com/mirage/ocaml-dns">implementation</a>,
-    provide a <a href="Conduit_resolver_lwt.html"><code class="code">Conduit_resolver_lwt</code></a> that can perform DNS lookups to return
+    provide a <a href="Resolver_lwt.html"><code class="code">Resolver_lwt</code></a> that can perform DNS lookups to return
     endpoints.
+</div>
+</td></tr>
+<tr><td><a href="Resolver.Make.html">Make</a> [<a href="Resolver.html">Resolver</a>]</td>
+<td><div class="info">
+Functor to construct a concrete resolver using a <a href="Conduit.IO.html"><code class="code">Conduit.IO</code></a>
+    implementation, usually via either Lwt or Async
 </div>
 </td></tr>
 <tr><td><a href="Conduit_mirage.Make.html">Make</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
@@ -86,6 +87,27 @@ Given a DNS resolver <a href="https://github.com/mirage/ocaml-dns">implementatio
 <td><div class="info">
 Functor to construct a <code class="code">V1_LWT.FLOW</code> module that internally contains
     all of the supported transport mechanisms, such as TCPv4 and Vchan.
+</div>
+</td></tr>
+<tr><td align="left"><br>R</td></tr>
+<tr><td><a href="Resolver.html">Resolver</a> </td>
+<td><div class="info">
+Resolve URIs to endpoints
+</div>
+</td></tr>
+<tr><td><a href="Resolver_lwt.html">Resolver_lwt</a> </td>
+<td><div class="info">
+Resolve URIs to endpoints using the <a href="http://ocsigen.org/lwt">Lwt</a> library
+</div>
+</td></tr>
+<tr><td><a href="Resolver_lwt_unix.html">Resolver_lwt_unix</a> </td>
+<td><div class="info">
+Resolve URIs to endpoints using Unix system calls
+</div>
+</td></tr>
+<tr><td><a href="Resolver_mirage.html">Resolver_mirage</a> </td>
+<td><div class="info">
+Functorial interface for resolving URIs to endpoints.
 </div>
 </td></tr>
 <tr><td align="left"><br>S</td></tr>

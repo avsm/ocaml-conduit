@@ -10,13 +10,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Conduit_mirage.Make_flow</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
+<link title="Resolver" rel="Chapter" href="Resolver.html">
+<link title="Resolver_lwt" rel="Chapter" href="Resolver_lwt.html">
+<link title="Resolver_lwt_unix" rel="Chapter" href="Resolver_lwt_unix.html">
+<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Conduit_mirage.Make_flow</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="Conduit_mirage.html" title="Conduit_mirage">Up</a>
@@ -24,7 +27,7 @@
 </div>
 <h1>Functor <a href="type_Conduit_mirage.Make_flow.html">Conduit_mirage.Make_flow</a></h1>
 
-<pre><span class="keyword">module</span> Make_flow <code class="code">(</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) </code> <code class="code">(</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code><code class="code">) </code>: <code class="type">V1_LWT.FLOW</code><code class="type"> </code></pre><div class="info module top">
+<pre><span class="keyword">module</span> Make_flow <code class="code">(</code><code class="code">S</code><code class="code"> : </code><code class="type">V1_LWT.TCPV4</code><code class="code">) </code> <code class="code">(</code><code class="code">V</code><code class="code"> : </code><code class="type"><a href="Conduit_mirage.VCHAN_FLOW.html">VCHAN_FLOW</a></code><code class="code">) </code>: <code class="type">V1_LWT.FLOW</code><code class="type"> </code></pre><div class="info module top">
 Functor to construct a <code class="code">V1_LWT.FLOW</code> module that internally contains
     all of the supported transport mechanisms, such as TCPv4 and Vchan.<br>
 </div>
@@ -42,7 +45,7 @@ Functor to construct a <code class="code">V1_LWT.FLOW</code> module that interna
 <td align="center" valign="top" width="15%">
 <code>V</code></td>
 <td align="center" valign="top">:</td>
-<td><code class="type"><a href="Conduit_mirage.ENDPOINT.html">ENDPOINT</a></code>
+<td><code class="type"><a href="Conduit_mirage.VCHAN_FLOW.html">VCHAN_FLOW</a></code>
 </table>
 </td>
 </tr>

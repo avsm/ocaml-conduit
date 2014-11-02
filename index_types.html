@@ -7,13 +7,16 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Conduit" rel="Chapter" href="Conduit.html">
+<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
-<link title="Conduit_resolver_lwt" rel="Chapter" href="Conduit_resolver_lwt.html">
-<link title="Conduit_resolver_lwt_unix" rel="Chapter" href="Conduit_resolver_lwt_unix.html">
-<link title="Conduit_resolver_mirage" rel="Chapter" href="Conduit_resolver_mirage.html">
-<link title="Conduit_xenstore" rel="Chapter" href="Conduit_xenstore.html"><title>Conduit URI resolution : Index of types</title>
+<link title="Conduit_trie" rel="Chapter" href="Conduit_trie.html">
+<link title="Resolver" rel="Chapter" href="Resolver.html">
+<link title="Resolver_lwt" rel="Chapter" href="Resolver_lwt.html">
+<link title="Resolver_lwt_unix" rel="Chapter" href="Resolver_lwt_unix.html">
+<link title="Resolver_mirage" rel="Chapter" href="Resolver_mirage.html"><title>Conduit URI resolution : Index of types</title>
 </head>
 <body>
 <div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
@@ -38,7 +41,15 @@ Set of supported client connections that are supported by this module.
 State handler for an active conduit
 </div>
 </td></tr>
+<tr><td align="left"><br>D</td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEdomain_flow">domain_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td></td></tr>
 <tr><td align="left"><br>E</td></tr>
+<tr><td><a href="Conduit.html#TYPEendp">endp</a> [<a href="Conduit.html">Conduit</a>]</td>
+<td><div class="info">
+End points that can potentially be connected to.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#TYPEerror">error</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>F</td></tr>
@@ -47,15 +58,18 @@ State handler for an active conduit
 <tr><td><a href="Conduit_mirage.S.html#TYPEflow">flow</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td><div class="info">
-Type of an established connection
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEic">ic</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEic">ic</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
+<tr><td><a href="Resolver.S.html#TYPEio">io</a> [<a href="Resolver.S.html">Resolver.S</a>]</td>
+<td><div class="info">
+Abstract type of the cooperative threading library used, normally
+      defined via the <code class="code">IO</code> module type
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEio">io</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEio">io</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
@@ -66,11 +80,20 @@ Type of an established connection
 <tr><td><a href="Conduit_lwt_unix.html#TYPEoc">oc</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>P</td></tr>
+<tr><td><a href="Conduit_mirage.S.html#TYPEpeer">peer</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit_mirage.PEER.html#TYPEport">port</a> [<a href="Conduit_mirage.PEER.html">Conduit_mirage.PEER</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#TYPEport">port</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
 <td><div class="info">
 Type of the port name that identifies a unique connection at an endpoint
+</div>
+</td></tr>
+<tr><td align="left"><br>R</td></tr>
+<tr><td><a href="Resolver.S.html#TYPErewrite_fn">rewrite_fn</a> [<a href="Resolver.S.html">Resolver.S</a>]</td>
+<td><div class="info">
+A rewrite function resolves a <a href="Resolver.S.html#TYPEsvc">service</a> and a URI into
+      a concrete endpoint.
 </div>
 </td></tr>
 <tr><td align="left"><br>S</td></tr>
@@ -84,9 +107,38 @@ Configuration for listening on a server port.
 Set of supported listening mechanisms that are supported by this module.
 </div>
 </td></tr>
+<tr><td><a href="Resolver.html#TYPEservice">service</a> [<a href="Resolver.html">Resolver</a>]</td>
+<td><div class="info">
+Description of a single service.
+</div>
+</td></tr>
+<tr><td><a href="Resolver.S.html#TYPEservice_fn">service_fn</a> [<a href="Resolver.S.html">Resolver.S</a>]</td>
+<td><div class="info">
+A service function maps the string (such as <code class="code">http</code> or <code class="code">ftp</code>) from
+      a URI scheme into a <a href="Resolver.S.html#TYPEsvc">service</a> description that includes
+      enough metadata about the service to subsequently <a href="Resolver.S.html#TYPErewrite_fn">resolve</a>
+      it into an endpoint.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEstack">stack</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
+<tr><td><a href="Resolver.S.html#TYPEsvc">svc</a> [<a href="Resolver.S.html">Resolver.S</a>]</td>
+<td><div class="info">
+Abstract type for a service entry, which maps a URI scheme into
+      a protocol handler and TCP port
+</div>
+</td></tr>
 <tr><td align="left"><br>T</td></tr>
+<tr><td><a href="Resolver.S.html#TYPEt">t</a> [<a href="Resolver.S.html">Resolver.S</a>]</td>
+<td><div class="info">
+State handle for a running resolver
+</div>
+</td></tr>
+<tr><td><a href="Conduit_trie.html#TYPEt">t</a> [<a href="Conduit_trie.html">Conduit_trie</a>]</td>
+<td><div class="info">
+Radix tree that maps <code class="code">string</code> keys to <code class="code">'a</code> values
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.PEER.html#TYPEt">t</a> [<a href="Conduit_mirage.PEER.html">Conduit_mirage.PEER</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_mirage.ENDPOINT.html#TYPEt">t</a> [<a href="Conduit_mirage.ENDPOINT.html">Conduit_mirage.ENDPOINT</a>]</td>
@@ -94,6 +146,10 @@ Set of supported listening mechanisms that are supported by this module.
 Type of a single connection
 </div>
 </td></tr>
+<tr><td><a href="Conduit.IO.html#TYPEt">t</a> [<a href="Conduit.IO.html">Conduit.IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEtcp_flow">tcp_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEtls_server_key">tls_server_key</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td><div class="info">
 Type describing where to locate an OpenSSL-format
@@ -101,9 +157,13 @@ Type describing where to locate an OpenSSL-format
 </div>
 </td></tr>
 <tr><td align="left"><br>U</td></tr>
+<tr><td><a href="Conduit_mirage.html#TYPEunknown">unknown</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit_mirage.PEER.html#TYPEuuid">uuid</a> [<a href="Conduit_mirage.PEER.html">Conduit_mirage.PEER</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>V</td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEvchan_flow">vchan_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td></td></tr>
 </table>
