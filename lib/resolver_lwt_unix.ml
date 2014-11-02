@@ -17,6 +17,22 @@
 
 open Lwt
 
+let debug = ref false
+let debug_print = ref Printf.eprintf
+let () =
+  try
+    ignore(Sys.getenv "CONDUIT_DEBUG");
+    debug := true
+  with Not_found -> ()
+
+let return_endp name svc uri endp =
+  if !debug then
+    !debug_print "Resolver %s: %s %s -> %s\n%!"
+     name (Uri.to_string uri)
+     (Sexplib.Sexp.to_string_hum (Resolver.sexp_of_service svc))
+     (Sexplib.Sexp.to_string_hum (Conduit.sexp_of_endp endp));
+  return endp
+
 let is_tls_service =
   (* TODO fill in the blanks. nowhere else to get this information *)
   function
@@ -29,7 +45,7 @@ let system_service name =
     (fun () ->
       Lwt_unix.getservbyname name "tcp" >>= fun s ->
       let tls = is_tls_service name in
-      let svc = { Conduit_resolver.name; port=s.Lwt_unix.s_port; tls } in
+      let svc = { Resolver.name; port=s.Lwt_unix.s_port; tls } in
       return (Some svc))
     (function Not_found -> return_none | e -> fail e)
 
@@ -38,7 +54,7 @@ let static_service name =
   | [] -> return None
   | port::_ ->
      let tls = is_tls_service name in
-     let svc = { Conduit_resolver.name; port; tls } in
+     let svc = { Resolver.name; port; tls } in
      return (Some svc)
 
 let get_host uri =
@@ -51,7 +67,7 @@ let get_host uri =
 
 let get_port service uri =
   match Uri.port uri with
-  | None -> service.Conduit_resolver.port
+  | None -> service.Resolver.port
   | Some port -> port
 
 (* Build a default resolver that uses the system gethostbyname and
@@ -62,25 +78,25 @@ let system_resolver service uri =
   let port = get_port service uri in
   getaddrinfo host (string_of_int port) [AI_SOCKTYPE SOCK_STREAM]
   >>= function
-  | [] -> return (`Unknown ("name resolution failed"))
+  | [] -> return_endp "system" service uri (`Unknown ("name resolution failed"))
   | {ai_addr=ADDR_INET (addr,port);_}::_ ->
-      return (`TCP (Ipaddr_unix.of_inet_addr addr, port))
+      return_endp "system" service uri (`TCP (Ipaddr_unix.of_inet_addr addr, port))
   | {ai_addr=ADDR_UNIX file;_}::_ ->
-      return (`Unix_domain_socket file)
+      return_endp "system" service uri (`Unix_domain_socket file)
 
-let static_resolver hosts _service uri =
+let static_resolver hosts service uri =
   try
-    return (Hashtbl.find hosts (get_host uri))
+    return_endp "static" service uri (Hashtbl.find hosts (get_host uri))
   with Not_found ->
-    return (`Unknown ("name resolution failed"))
+    return_endp "static" service uri (`Unknown ("name resolution failed"))
 
 let system =
   let service = system_service in
   let rewrites = ["", system_resolver] in
-  Conduit_resolver_lwt.init ~service ~rewrites ()
+  Resolver_lwt.init ~service ~rewrites ()
 
 (* Build a default resolver from a static set of lookup rules *)
 let static hosts =
   let service = static_service in
   let rewrites = ["", static_resolver hosts] in
-  Conduit_resolver_lwt.init ~service ~rewrites ()
+  Resolver_lwt.init ~service ~rewrites ()

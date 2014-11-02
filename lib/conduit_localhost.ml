@@ -15,14 +15,13 @@
  *
 *)
 
-module IO = struct
-  type 'a t = 'a Lwt.t
-  let (>>=) = Lwt.bind
-  let return = Lwt.return
-end
+type t = unit
+type flow
+type uuid = string
+type port = Vchan.Port.t
 
-module type S = Conduit.RESOLVER
-  with type svc = Conduit_resolver.service
-  and  type 'a io = 'a Lwt.t
+let register _ = Lwt.return ()
+let listen _ = Lwt.fail (Failure "Localhost peer only")
+let connect _ ~remote_name ~port = Lwt.return (`Unknown "localhost peer only")
 
-include Conduit_resolver.Make(IO)
+module Endpoint = Vchan.In_memory
