@@ -20,6 +20,7 @@ esac
 
 HAVE_LWT=`ocamlfind query lwt 2>/dev/null || true`
 HAVE_LWT_SSL=`ocamlfind query lwt.ssl 2>/dev/null || true`
+HAVE_LWT_TLS=`ocamlfind query tls.lwt 2>/dev/null || true`
 HAVE_MIRAGE=`ocamlfind query mirage-types dns.mirage tcpip 2>/dev/null || true`
 HAVE_VCHAN=`ocamlfind query vchan 2>/dev/null || true`
 HAVE_VCHAN_LWT=`ocamlfind query vchan.lwt xen-evtchn.unix 2>/dev/null || true`
@@ -83,6 +84,13 @@ if [ "$HAVE_LWT" != "" ]; then
     echo Conduit_lwt_unix_ssl >> lib/conduit-lwt-unix.mllib
   fi
 
+  if [ "$HAVE_LWT_TLS" != "" ]; then
+    echo "Building with Lwt/TLS support."
+    echo 'true: define(HAVE_LWT_TLS)' >> _tags
+    LWT_UNIX_REQUIRES="$LWT_UNIX_REQUIRES tls tls.lwt"
+    echo Conduit_lwt_tls >> lib/conduit-lwt-unix.mllib
+  fi
+
   cp lib/conduit-lwt.mllib lib/conduit-lwt.odocl
   cp lib/conduit-lwt-unix.mllib lib/conduit-lwt-unix.odocl
 
@@ -124,12 +132,14 @@ if [ "$HAVE_VCHAN_LWT" != "" ]; then
 fi
 
 # Build all the ocamldoc
-cat lib/*.odocl > lib/conduit-all.odocl
-TARGETS="${TARGETS} lib/conduit-all.docdir/index.html"
+if [ "$BUILD_DOC" = "true" ]; then
+  cat lib/*.odocl > lib/conduit-all.odocl
+  TARGETS="${TARGETS} lib/conduit-all.docdir/index.html"
+fi
 
 REQS=`echo $PKG $ASYNC_REQUIRES $LWT_REQUIRES $LWT_UNIX_REQUIRES $LWT_MIRAGE_REQUIRES $LWT_MIRAGE_XEN_REQUIRES $VCHAN_LWT_REQUIRES | tr -s ' '`
 
-ocamlbuild -use-ocamlfind -j ${J_FLAG} -tag ${TAGS} \
+ocamlbuild -use-ocamlfind -no-links -j ${J_FLAG} -tag ${TAGS} \
   -cflags "-w A-4-33-40-41-42-43-34-44" \
   -pkgs `echo $REQS | tr ' ' ','` \
   ${TARGETS}
