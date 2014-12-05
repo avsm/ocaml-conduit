@@ -8,9 +8,8 @@
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
 <link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_async_ssl" rel="Chapter" href="Conduit_async_ssl.html">
 <link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
+<link title="Conduit_lwt_tls" rel="Chapter" href="Conduit_lwt_tls.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
@@ -25,9 +24,6 @@
 &nbsp;</div>
 <h1>Index of types</h1>
 <table>
-<tr><td align="left"><br>A</td></tr>
-<tr><td><a href="Conduit_async.html#TYPEaddr">addr</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br>C</td></tr>
 <tr><td><a href="Conduit_mirage.html#TYPEclient">client</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td><div class="info">
@@ -39,6 +35,11 @@ Configuration for a single client connection
 Set of supported client connections that are supported by this module.
 </div>
 </td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEclient_tls_config">client_tls_config</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td><div class="info">
+Configuration fragment for a TLS client connecting to a remote endpoint
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEctx">ctx</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEctx">ctx</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
@@ -48,7 +49,10 @@ State handler for an active conduit
 </td></tr>
 <tr><td align="left"><br>D</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEdomain_flow">domain_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">domain_flow</code> contains the state of a single Unix domain socket connection.
+</div>
+</td></tr>
 <tr><td align="left"><br>E</td></tr>
 <tr><td><a href="Conduit.html#TYPEendp">endp</a> [<a href="Conduit.html">Conduit</a>]</td>
 <td><div class="info">
@@ -63,13 +67,14 @@ End points that can potentially be connected to.
 <tr><td><a href="Conduit_mirage.S.html#TYPEflow">flow</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEflow">flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+A <code class="code">flow</code> contains the state of a single connection, over a specific transport method.
+</div>
+</td></tr>
 <tr><td align="left"><br>I</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEic">ic</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEic">ic</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
-<tr><td><a href="Conduit_async.html#TYPEic">ic</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td><a href="Resolver.S.html#TYPEio">io</a> [<a href="Resolver.S.html">Resolver.S</a>]</td>
 <td><div class="info">
@@ -81,14 +86,10 @@ Abstract type of the cooperative threading library used, normally
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEio">io</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td></td></tr>
-<tr><td><a href="Conduit_async.html#TYPEio">io</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br>O</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEoc">oc</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEoc">oc</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
-<tr><td><a href="Conduit_async.html#TYPEoc">oc</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br>P</td></tr>
 <tr><td><a href="Conduit_mirage.S.html#TYPEpeer">peer</a> [<a href="Conduit_mirage.S.html">Conduit_mirage.S</a>]</td>
@@ -118,8 +119,11 @@ Configuration for listening on a server port.
 Set of supported listening mechanisms that are supported by this module.
 </div>
 </td></tr>
-<tr><td><a href="Conduit_async.html#TYPEserver">server</a> [<a href="Conduit_async.html">Conduit_async</a>]</td>
-<td></td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEserver_tls_config">server_tls_config</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td><div class="info">
+Configuration fragment for a listening TLS server
+</div>
+</td></tr>
 <tr><td><a href="Resolver.html#TYPEservice">service</a> [<a href="Resolver.html">Resolver</a>]</td>
 <td><div class="info">
 Description of a single service.
@@ -162,11 +166,18 @@ Type of a single connection
 <tr><td><a href="Conduit.IO.html#TYPEt">t</a> [<a href="Conduit.IO.html">Conduit.IO</a>]</td>
 <td></td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEtcp_flow">tcp_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">tcp_flow</code> contains the state of a single TCP connection.
+</div>
+</td></tr>
+<tr><td><a href="Conduit_lwt_unix.html#TYPEtls_lib">tls_lib</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
+<td><div class="info">
+Currently selected method of using TLS for client and servers
+</div>
+</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEtls_server_key">tls_server_key</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
 <td><div class="info">
-Type describing where to locate an OpenSSL-format
-    key in the filesystem
+Type describing where to locate a PEM key in the filesystem
 </div>
 </td></tr>
 <tr><td align="left"><br>U</td></tr>
@@ -176,7 +187,10 @@ Type describing where to locate an OpenSSL-format
 <td></td></tr>
 <tr><td align="left"><br>V</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html#TYPEvchan_flow">vchan_flow</a> [<a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">vchan_flow</code> contains the state of a single Vchan shared memory connection.
+</div>
+</td></tr>
 <tr><td><a href="Conduit_mirage.html#TYPEvchan_port">vchan_port</a> [<a href="Conduit_mirage.html">Conduit_mirage</a>]</td>
 <td></td></tr>
 </table>

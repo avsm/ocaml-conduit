@@ -11,9 +11,8 @@
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
 <link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_async_ssl" rel="Chapter" href="Conduit_async_ssl.html">
 <link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
+<link title="Conduit_lwt_tls" rel="Chapter" href="Conduit_lwt_tls.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
@@ -63,4 +62,9 @@ Use the configuration of the server to interpret how to handle a
       implementation of type <code class="code">client</code><br>
 </div>
 
-<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre></body></html>
+<pre><span id="VALendp_to_server"><span class="keyword">val</span> endp_to_server</span> : <code class="type">ctx:<a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -><br>       <a href="Conduit.html#TYPEendp">Conduit.endp</a> -> <a href="Conduit_mirage.html#TYPEserver">Conduit_mirage.server</a> <a href="Conduit_mirage.S.html#TYPEio">io</a></code></pre>
+<pre><span id="VALsexp_of_ctx"><span class="keyword">val</span> sexp_of_ctx</span> : <code class="type"><a href="Conduit_mirage.S.html#TYPEctx">ctx</a> -> Sexplib.Sexp.t</code></pre><br>
+Use the configuration of the server to interpret how to handle a
+      particular endpoint from the resolver into a concrete
+      implementation of type <code class="code">client</code><br>
+</body></html>

@@ -8,9 +8,8 @@
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
 <link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
-<link title="Conduit_async_ssl" rel="Chapter" href="Conduit_async_ssl.html">
 <link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
+<link title="Conduit_lwt_tls" rel="Chapter" href="Conduit_lwt_tls.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
@@ -28,24 +27,20 @@
 <tr><td align="left"><br>C</td></tr>
 <tr><td><a href="Conduit_lwt_unix_ssl.Client.html">Client</a> [<a href="Conduit_lwt_unix_ssl.html">Conduit_lwt_unix_ssl</a>]</td>
 <td></td></tr>
+<tr><td><a href="Conduit_lwt_tls.Client.html">Client</a> [<a href="Conduit_lwt_tls.html">Conduit_lwt_tls</a>]</td>
+<td></td></tr>
 <tr><td><a href="Conduit.html">Conduit</a> </td>
 <td><div class="info">
 Interface for establishing reliable stream-oriented connections.
 </div>
 </td></tr>
-<tr><td><a href="Conduit_async.html">Conduit_async</a> </td>
-<td><div class="info">
-Connection establishment using the
-    <a href="https://github.com/janestreet/async">Async</a> library
-</div>
-</td></tr>
-<tr><td><a href="Conduit_async_ssl.html">Conduit_async_ssl</a> </td>
-<td><div class="info">
-TLS/SSL connection establishment using OpenSSL and Async
-</div>
-</td></tr>
 <tr><td><a href="Conduit_localhost.html">Conduit_localhost</a> </td>
 <td></td></tr>
+<tr><td><a href="Conduit_lwt_tls.html">Conduit_lwt_tls</a> </td>
+<td><div class="info">
+TLS/SSL connections via OCaml-TLS
+</div>
+</td></tr>
 <tr><td><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a> </td>
 <td><div class="info">
 Connection establishment using the
@@ -125,6 +120,8 @@ Functorial interface for resolving URIs to endpoints.
 </td></tr>
 <tr><td align="left"><br>S</td></tr>
 <tr><td><a href="Conduit_lwt_unix_ssl.Server.html">Server</a> [<a href="Conduit_lwt_unix_ssl.html">Conduit_lwt_unix_ssl</a>]</td>
+<td></td></tr>
+<tr><td><a href="Conduit_lwt_tls.Server.html">Server</a> [<a href="Conduit_lwt_tls.html">Conduit_lwt_tls</a>]</td>
 <td></td></tr>
 </table>
 </body>
