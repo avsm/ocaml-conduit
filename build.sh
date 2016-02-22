@@ -4,7 +4,7 @@ TAGS=principal,annot,bin_annot,short_paths,thread,strict_sequence
 J_FLAG=2
 
 BASE_PKG="sexplib ipaddr cstruct uri stringext"
-SYNTAX_PKG="camlp4.macro pa_sexplib_conv.syntax"
+SYNTAX_PKG="camlp4.macro pa_sexp_conv.syntax"
 
 # The Async backend is only supported in OCaml 4.01.0+
 OCAML_VERSION=`ocamlc -version`

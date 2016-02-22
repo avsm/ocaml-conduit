@@ -14,7 +14,7 @@ remove:  ["ocamlfind" "remove" "conduit"]
 depends: [
   "ocamlfind" {build}
   "ocamlbuild" {build}
-  "pa_sexplib_conv"
+  "pa_sexp_conv"
   "stringext"
   "uri"
   "cstruct" {>="1.0.1"}
