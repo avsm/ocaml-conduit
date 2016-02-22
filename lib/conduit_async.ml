@@ -78,8 +78,8 @@ type server = [
 ] with sexp
 
 let serve
-      ?max_connections ?max_pending_connections
-      ?buffer_age_limit ?on_handler_error mode where_to_listen handle_request =
+      ?max_connections ?buffer_age_limit ?on_handler_error
+       mode where_to_listen handle_request =
   let handle_client handle_request sock rd wr =
     match mode with
     | `TCP -> handle_request sock rd wr
@@ -106,6 +106,5 @@ ELSE
         raise (Failure "SSL unsupported in Conduit")
 END
     in
-    Tcp.Server.create ?max_connections ?max_pending_connections
-      ?buffer_age_limit ?on_handler_error
+    Tcp.Server.create ?max_connections ?buffer_age_limit ?on_handler_error
       where_to_listen (handle_client handle_request)
