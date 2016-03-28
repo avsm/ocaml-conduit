@@ -5,12 +5,13 @@
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
 <link title="Conduit" rel="Chapter" href="Conduit.html">
-<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
-<link title="Conduit_lwt_tls" rel="Chapter" href="Conduit_lwt_tls.html">
+<link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
+<link title="Conduit_async_ssl" rel="Chapter" href="Conduit_async_ssl.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
@@ -30,7 +31,8 @@ machine) or on a remote host via TCP.  It consists of:
 <li>The <a href="Conduit.html"><code class="code">Conduit</code></a> module with basic type definitions for endpoints</li>
 <li>OS-specific modules for establishing individual connections</li>
 <li>The <a href="Resolver.html"><code class="code">Resolver</code></a> module for mapping URIs to endpoints</li>
-<li>OS-specific name resolvers that use available resolution mechanisms</li>
+<li>OS-specific name resolvers that use available
+  resolution mechanisms</li>
 </ul>
 
 <h2 id="transport">Connection Establishment</h2> 
@@ -48,17 +50,9 @@ other combination).
 The modules dealing with connection establishment are:
 <br>
 <table class="indextable">
-<tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td><div class="info">
-Connection establishment using the
-    <a href="http://ocsigen.org/lwt/api/Lwt_unix">Lwt_unix</a> library
-</div>
-</td></tr>
-<tr><td class="module">Conduit_async</td><td></td></tr>
-<tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td><div class="info">
-Functorial connection establishment interface that is compatible with
-    the Mirage libraries.
-</div>
-</td></tr>
+<tr><td class="module"><a href="Conduit_lwt_unix.html">Conduit_lwt_unix</a></td><td></td></tr>
+<tr><td class="module"><a href="Conduit_async.html">Conduit_async</a></td><td></td></tr>
+<tr><td class="module"><a href="Conduit_mirage.html">Conduit_mirage</a></td><td></td></tr>
 </table>
 
 <p>
@@ -66,7 +60,8 @@ Functorial connection establishment interface that is compatible with
 <h2 id="resolution">Name Resolution</h2>
 <p>
 
-This deals with resolving URIs into a list of <a href="Conduit.html#TYPEendp">endp</a> addresses that can
+This deals with resolving URIs into a list of <a href="Conduit.html#TYPEendp">endp</a>
+addresses that can
 then be connected to by the connection establishment modules.
 <p>
 
@@ -74,18 +69,9 @@ All of the name resolvers conform to the <a href="Resolver.S.html"><code class="
 The OS-specific implementations of this interface are: 
 <br>
 <table class="indextable">
-<tr><td class="module"><a href="Resolver_lwt.html">Resolver_lwt</a></td><td><div class="info">
-Resolve URIs to endpoints using the <a href="http://ocsigen.org/lwt">Lwt</a> library
-</div>
-</td></tr>
-<tr><td class="module"><a href="Resolver_lwt_unix.html">Resolver_lwt_unix</a></td><td><div class="info">
-Resolve URIs to endpoints using Unix system calls
-</div>
-</td></tr>
-<tr><td class="module"><a href="Resolver_mirage.html">Resolver_mirage</a></td><td><div class="info">
-Functorial interface for resolving URIs to endpoints.
-</div>
-</td></tr>
+<tr><td class="module"><a href="Resolver_lwt.html">Resolver_lwt</a></td><td></td></tr>
+<tr><td class="module"><a href="Resolver_lwt_unix.html">Resolver_lwt_unix</a></td><td></td></tr>
+<tr><td class="module"><a href="Resolver_mirage.html">Resolver_mirage</a></td><td></td></tr>
 </table>
 
 <p>
@@ -99,13 +85,14 @@ functors are:
 <br>
 <table class="indextable">
 <tr><td class="module">Conduit_xenstore</td><td></td></tr>
-<tr><td class="module"><a href="Conduit_localhost.html">Conduit_localhost</a></td><td></td></tr>
+<tr><td class="module">Conduit_localhost</td><td></td></tr>
 </table>
 
 <p>
 
 <ul class="indexlist">
 <li><a href="index_types.html">Index of types</a></li>
+<li><a href="index_exceptions.html">Index of exceptions</a></li>
 <li><a href="index_values.html">Index of values</a></li>
 <li><a href="index_modules.html">Index of modules</a></li>
 <li><a href="index_module_types.html">Index of module types</a></li>

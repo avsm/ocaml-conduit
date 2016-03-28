@@ -5,16 +5,16 @@
 <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 <link rel="Start" href="index.html">
 <link rel="previous" href="Conduit_async.html">
-<link rel="next" href="Conduit_localhost.html">
+<link rel="next" href="Conduit_lwt_unix.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Index of module types" rel=Appendix href="index_module_types.html">
 <link title="Conduit" rel="Chapter" href="Conduit.html">
 <link title="Conduit_async" rel="Chapter" href="Conduit_async.html">
 <link title="Conduit_async_ssl" rel="Chapter" href="Conduit_async_ssl.html">
-<link title="Conduit_localhost" rel="Chapter" href="Conduit_localhost.html">
 <link title="Conduit_lwt_unix" rel="Chapter" href="Conduit_lwt_unix.html">
 <link title="Conduit_lwt_unix_ssl" rel="Chapter" href="Conduit_lwt_unix_ssl.html">
 <link title="Conduit_mirage" rel="Chapter" href="Conduit_mirage.html">
@@ -27,24 +27,11 @@
 <body>
 <div class="navbar"><a class="pre" href="Conduit_async.html" title="Conduit_async">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Conduit_localhost.html" title="Conduit_localhost">Next</a>
+&nbsp;<a class="post" href="Conduit_lwt_unix.html" title="Conduit_lwt_unix">Next</a>
 </div>
 <h1>Module <a href="type_Conduit_async_ssl.html">Conduit_async_ssl</a></h1>
 
-<pre><span class="keyword">module</span> Conduit_async_ssl: <code class="code">sig</code> <a href="Conduit_async_ssl.html">..</a> <code class="code">end</code></pre><div class="info module top">
-TLS/SSL connection establishment using OpenSSL and Async<br>
-</div>
-<hr width="100%">
+<pre><span class="keyword">module</span> Conduit_async_ssl: <code class="code">sig</code> <a href="Conduit_async_ssl.html">..</a> <code class="code">end</code></pre><hr width="100%">
 
-<pre><span id="VALssl_connect"><span class="keyword">val</span> ssl_connect</span> : <code class="type">Async.Std.Reader.t -><br>       Async.Std.Writer.t -><br>       (Async.Std.Reader.t * Async.Std.Writer.t) Async.Std.Deferred.t</code></pre><div class="info ">
-<code class="code">ssl_connect rd wr</code> will establish a client TLS/SSL session
-    over an existing pair of a <code class="code">rd</code> <code class="code">Reader.t</code> and <code class="code">wd</code> <code class="code">Writer.t</code>
-    Async connections.<br>
-</div>
-
-<pre><span id="VALssl_listen"><span class="keyword">val</span> ssl_listen</span> : <code class="type">crt_file:string -><br>       key_file:string -><br>       Async.Std.Reader.t -><br>       Async.Std.Writer.t -><br>       (Async.Std.Reader.t * Async.Std.Writer.t) Async.Std.Deferred.t</code></pre><div class="info ">
-<code class="code">ssl_listen ~crt_file ~key_file rd wr</code> will establish a server
-    TLS/SSL session over an existing pair of <code class="code">rd</code> <code class="code">Reader.t</code> and
-    <code class="code">wd</code> <code class="code">Writer.t</code> Async connections.<br>
-</div>
-</body></html>
+<pre><span id="VALssl_connect"><span class="keyword">val</span> ssl_connect</span> : <code class="type">?version:Async_ssl.Std.Ssl.Version.t -><br>       ?name:string -><br>       ?ca_file:string -><br>       ?ca_path:string -><br>       ?session:Async_ssl.Std.Ssl.Session.t -><br>       ?verify:(Async_ssl.Std.Ssl.Connection.t -> bool Async.Std.Deferred.t) -><br>       Async.Std.Reader.t -><br>       Async.Std.Writer.t -><br>       (Async.Std.Reader.t * Async.Std.Writer.t) Async.Std.Deferred.t</code></pre>
+<pre><span id="VALssl_listen"><span class="keyword">val</span> ssl_listen</span> : <code class="type">?version:Async_ssl.Std.Ssl.Version.t -><br>       ?ca_file:string -><br>       ?ca_path:string -><br>       crt_file:string -><br>       key_file:string -><br>       Async.Std.Reader.t -><br>       Async.Std.Writer.t -><br>       (Async.Std.Reader.t * Async.Std.Writer.t) Async.Std.Deferred.t</code></pre></body></html>
