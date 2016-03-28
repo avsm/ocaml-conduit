@@ -17,20 +17,38 @@
 *)
 
 (** TLS/SSL connection establishment using OpenSSL and Async *)
+open Core.Std
 open Async.Std
+open Async_ssl.Std
 
 (** [ssl_connect rd wr] will establish a client TLS/SSL session
     over an existing pair of a [rd] {!Reader.t} and [wd] {!Writer.t}
     Async connections. *)
-val ssl_connect : 
-  Reader.t -> 
-  Writer.t -> 
+val ssl_connect :
+  ?version:Ssl.Version.t ->
+  ?name:string ->
+  ?ca_file:string ->
+  ?ca_path:string ->
+  ?session:Ssl.Session.t ->
+  ?verify:(Ssl.Connection.t -> bool Deferred.t) ->
+  Reader.t ->
+  Writer.t ->
   (Reader.t * Writer.t) Deferred.t
 
 (** [ssl_listen ~crt_file ~key_file rd wr] will establish a server
     TLS/SSL session over an existing pair of [rd] {!Reader.t} and
-    [wd] {!Writer.t} Async connections. *)
+    [wd] {!Writer.t} Async connections.
+
+    [version] is the version of SSL being used by the server. If not
+    set, it is [Ssl.Version.Tlsv1_2].
+
+    From [Async_ssl.Std.Ssl]: If both [ca_file] and [ca_path] are specified,
+    the certificates in [ca_file] will be searched before the certificates in
+    [ca_path].*)
 val ssl_listen :
+  ?version:Ssl.Version.t ->
+  ?ca_file:string ->
+  ?ca_path:string ->
   crt_file:string ->
   key_file:string ->
   Reader.t ->

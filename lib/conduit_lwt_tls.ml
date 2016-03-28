@@ -17,22 +17,39 @@
 
 open Lwt
 
-let _ = Tls_lwt.rng_init ()
+let _ = Nocrypto_entropy_lwt.initialize ()
+
+let safe_close t =
+  Lwt.catch
+    (fun () -> Lwt_io.close t)
+    (fun _ -> return_unit)
+
+let close (ic, oc) =
+  safe_close oc >>= fun () ->
+  safe_close ic
+
+let with_socket sockaddr f =
+  let fd = Lwt_unix.socket (Unix.domain_of_sockaddr sockaddr) Unix.SOCK_STREAM 0 in
+  Lwt.catch (fun () -> f fd) (fun e ->
+      Lwt.catch (fun () -> Lwt_unix.close fd) (fun _ -> return_unit) >>= fun () ->
+      fail e
+    )
 
 module Client = struct
   let connect ?src host sa =
-    let fd = Lwt_unix.socket (Unix.domain_of_sockaddr sa) Unix.SOCK_STREAM 0 in
-    let () =
-      match src with
-      | None -> ()
-      | Some src_sa -> Lwt_unix.bind fd src_sa
-    in
-    X509_lwt.authenticator `No_authentication_I'M_STUPID >>= fun authenticator ->
-    let config = Tls.Config.client ~authenticator () in
-    Lwt_unix.connect fd sa >>= fun () ->
-    Tls_lwt.Unix.client_of_fd config ~host fd >|= fun t ->
-    let ic, oc = Tls_lwt.of_t t in
-    (fd, ic, oc)
+    with_socket sa (fun fd ->
+        let () =
+          match src with
+          | None -> ()
+          | Some src_sa -> Lwt_unix.bind fd src_sa
+        in
+        X509_lwt.authenticator `No_authentication_I'M_STUPID >>= fun authenticator ->
+        let config = Tls.Config.client ~authenticator () in
+        Lwt_unix.connect fd sa >>= fun () ->
+        Tls_lwt.Unix.client_of_fd config ~host fd >|= fun t ->
+        let ic, oc = Tls_lwt.of_t t in
+        (fd, ic, oc)
+      )
 end
 
 module Server = struct
@@ -45,21 +62,24 @@ module Server = struct
 
   let accept config s =
     Lwt_unix.accept s >>= fun (fd, sa) ->
-    Tls_lwt.Unix.server_of_fd config fd >|= fun t ->
-    let ic, oc = Tls_lwt.of_t t in
-    (fd, ic, oc)
+    Lwt.try_bind (fun () ->
+        Tls_lwt.Unix.server_of_fd config fd)
+      (fun t ->
+        let ic, oc = Tls_lwt.of_t t in
+        return (fd, ic, oc))
+      (fun exn -> Lwt_unix.close fd >>= fun () -> fail exn)
 
   let process_accept ~timeout callback (cfd, ic, oc) =
     let c = callback cfd ic oc in
     let events = match timeout with
       | None -> [c]
       | Some t -> [c; (Lwt_unix.sleep (float_of_int t)) ] in
-    Lwt.pick events
+    Lwt.ignore_result (Lwt.pick events >>= fun () -> close (ic, oc))
 
   let init ?(nconn=20) ~certfile ~keyfile
-      ?(stop = fst (Lwt.wait ())) ?timeout sa callback =
+        ?(stop = fst (Lwt.wait ())) ?timeout sa callback =
     X509_lwt.private_of_pems ~cert:certfile ~priv_key:keyfile >>= fun certificate ->
-    let config = Tls.Config.server ~certificate () in
+    let config = Tls.Config.server ~certificates:(`Single certificate) () in
     let s = listen nconn sa in
     let cont = ref true in
     async (fun () ->
@@ -71,10 +91,11 @@ module Server = struct
       if not !cont then return_unit
       else (
         Lwt.catch
-          (fun () -> accept config s >>= process_accept ~timeout callback)
+          (fun () ->
+             accept config s >|= process_accept ~timeout callback)
           (function
             | Lwt.Canceled -> cont := false; return ()
-            | _ -> return ())
+            | _ -> Lwt_unix.yield ())
         >>= loop
       )
     in

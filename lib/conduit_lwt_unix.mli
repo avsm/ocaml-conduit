@@ -17,7 +17,7 @@
  *)
 
 (** Connection establishment using the
-    {{:http://ocsigen.org/lwt/api/Lwt_unix}Lwt_unix} library *) 
+    {{:http://ocsigen.org/lwt/api/Lwt_unix}Lwt_unix} library *)
 
 open Sexplib.Conv
 
@@ -30,15 +30,37 @@ type client_tls_config =
   [ `Port of int ]
 with sexp
 
-(** Set of supported client connections that are supported by this module. *)
+(** Set of supported client connections that are supported by this module:
+
+   - [`TLS (`Hostname host, `IP ip, `Port port)]: Use OCaml-TLS or
+     OpenSSL (depending on CONDUIT_TLS) to connect to
+      the given [host], [ip], [port] tuple via TCP.
+   - [`TLS_native _]: Force use of native OCaml TLS stack to connect.
+   - [`OpenSSL _]: Force use of Lwt OpenSSL bindings to connect.
+   - [`TCP (`IP ip, `Port port)]: Use TCP to connect to the given
+     [ip], [port] tuple.
+   - [`Unix_domain_socket (`File path)]: Use UNIX domain sockets to
+     connect to a socket on the [path].
+   - [`Vchan_direct (`Domid domid, `Port port)]: Connect to the remote
+     VM on the [domid], [port] tuple.
+   - [`Vchan_domain_socket (`Domain_name domain, `Port port_name)]:
+     Use the Vchan name resolution to connect.
+
+ *)
 type client = [
-  | `TLS of client_tls_config (** Use OCaml-TLS or OpenSSL (depending on CONDUIT_TLS) to connect to the given [host], [ip], [port] tuple via TCP *)
-  | `TLS_native of client_tls_config (** Force use of native OCaml TLS stack to connect.*)
-  | `OpenSSL of client_tls_config  (** Force use of Lwt OpenSSL bindings to connect. *)
-  | `TCP of [ `IP of Ipaddr.t ] * [`Port of int ] (** Use TCP to connect to the given [ip], [port] tuple. *)
-  | `Unix_domain_socket of [ `File of string ] (** Use UNIX domain sockets to connect to a socket on the [path]. *)
-  | `Vchan_direct of [ `Domid of int ] * [ `Port of string ] (** Connect to the remote VM on the [domid], [port] tuple. *)
-  | `Vchan_domain_socket of [ `Domain_name of string ] * [ `Port of string ] (** Use the Vchan name resolution to connect *)
+  | `TLS of client_tls_config
+  | `TLS_native of client_tls_config
+  (** Force use of native OCaml TLS stack to connect.*)
+  | `OpenSSL of client_tls_config
+  (** Force use of Lwt OpenSSL bindings to connect. *)
+  | `TCP of [ `IP of Ipaddr.t ] * [`Port of int ]
+  (** Use TCP to connect to the given [ip], [port] tuple. *)
+  | `Unix_domain_socket of [ `File of string ]
+  (** Use UNIX domain sockets to connect to a socket on the [path]. *)
+  | `Vchan_direct of [ `Domid of int ] * [ `Port of string ]
+  (** Connect to the remote VM on the [domid], [port] tuple. *)
+  | `Vchan_domain_socket of [ `Domain_name of string ] * [ `Port of string ]
+  (** Use the Vchan name resolution to connect *)
 ] with sexp
 
 (** Configuration fragment for a listening TLS server *)
@@ -49,7 +71,19 @@ type server_tls_config =
   [ `Port of int ]
 with sexp
 
-(** Set of supported listening mechanisms that are supported by this module. *)
+(** Set of supported listening mechanisms that are supported by this module. 
+   - [`TLS server_tls_config]: Use OCaml-TLS or OpenSSL (depending on CONDUIT_TLS) to connect
+     to the given [host], [ip], [port] tuple via TCP.
+   - [`TLS_native _]: Force use of native OCaml TLS stack to connect.
+   - [`OpenSSL _]: Force use of Lwt OpenSSL bindings to connect.
+   - [`TCP (`Port port)]: Listen on the specified TCPv4 port.
+   - [`Unix_domain_socket (`File path)]: Use UNIX domain sockets to listen on the path.
+   - [`Vchan_direct (domid, port)]: Listen for the remote VM on the [domid], [port] tuple.
+   - [`Vchan_domain_socket (domain, port_name)]: Use the Vchan name resolution to listen
+   - [`Launchd name]: uses MacOS X launchd to start the service, via the name
+     of the [Sockets] element within the service description plist file.  See the
+     {{:http://mirage.github.io/ocaml-launchd/launchd/}ocaml-launchd} documentation for more.
+*)
 type server = [
   | `TLS of server_tls_config
   | `OpenSSL of server_tls_config
@@ -58,6 +92,7 @@ type server = [
   | `Unix_domain_socket of [ `File of string ]
   | `Vchan_direct of int * string
   | `Vchan_domain_socket of string  * string
+  | `Launchd of string
 ] with sexp
 
 type 'a io = 'a Lwt.t
@@ -71,19 +106,22 @@ type tcp_flow = private {
   port: int;
 } with sexp_of
 
-(** [domain_flow] contains the state of a single Unix domain socket connection. *)
+(** [domain_flow] contains the state of a single Unix domain socket
+    connection. *)
 type domain_flow = private {
   fd: Lwt_unix.file_descr sexp_opaque;
   path: string;
 } with sexp_of
 
-(** [vchan_flow] contains the state of a single Vchan shared memory connection. *)
+(** [vchan_flow] contains the state of a single Vchan shared memory
+    connection. *)
 type vchan_flow = private {
   domid: int;
   port: string;
 } with sexp_of
 
-(** A [flow] contains the state of a single connection, over a specific transport method. *)
+(** A [flow] contains the state of a single connection, over a specific
+    transport method. *)
 type flow = private
   | TCP of tcp_flow
   | Domain_socket of domain_flow
@@ -108,7 +146,7 @@ type ctx with sexp_of
     no TLS certificate associated with the Conduit *)
 val default_ctx : ctx
 
-(** [init ?src ?tls_server_key] will initialize a Unix conduit
+(** [init ?src ?tls_server_key ()] will initialize a Unix conduit
     that binds to the [src] interface if specified.  If TLS server
     connections are used, then [tls_server_key] must contain a
     valid certificate to be used to advertise a TLS connection *)
@@ -122,7 +160,10 @@ val connect : ctx:ctx -> client -> (flow * ic * oc) io
     connection of type [mode], using the [ctx] context.  The
     [stop] thread will terminate the server if it ever becomes
     determined.  Every connection will be served in a new
-    lightweight thread that is invoked via the [fn] callback *)
+    lightweight thread that is invoked via the [fn] callback.
+    The [fn] callback is passed the {!flow} representing the
+    client connection and the associated input {!ic} and output
+    {!oc} channels. *)
 val serve :
   ?timeout:int -> ?stop:(unit io) -> ctx:ctx ->
    mode:server -> (flow -> ic -> oc -> unit io) -> unit io
@@ -136,7 +177,7 @@ val endp_of_flow : flow -> Conduit.endp
 val endp_to_client : ctx:ctx -> Conduit.endp -> client io
 
 (** [endp_to_server ~ctx endp] converts an [endp] into a
-    a concrete connection mechanism of type [client] *)
+    a concrete connection mechanism of type [server] *)
 val endp_to_server : ctx:ctx -> Conduit.endp -> server io
 
 (** {2 TLS library selection} *)

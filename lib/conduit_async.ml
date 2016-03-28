@@ -18,9 +18,41 @@
 open Core.Std
 open Async.Std
 
+exception Ssl_unsupported with sexp
+
 IFDEF HAVE_ASYNC_SSL THEN
 open Async_ssl.Std
 END
+
+module Ssl = struct
+IFDEF HAVE_ASYNC_SSL THEN
+  type config = {
+    version : Ssl.Version.t option;
+    name : string option;
+    ca_file : string option;
+    ca_path : string option;
+    session : Ssl.Session.t option sexp_opaque;
+    verify : (Ssl.Connection.t -> bool Deferred.t) option;
+  } with sexp
+
+  let verify_certificate connection =
+    match Ssl.Connection.peer_certificate connection with
+    | None -> return false
+    | Some (Error _) -> return false
+    | Some (Ok _) -> return true
+
+  let configure ?version ?name ?ca_file ?ca_path ?session ?verify () =
+    { version; name; ca_file; ca_path; session; verify}
+ELSE
+  type config = unit with sexp
+
+  let verify_certificate _ =
+    raise Ssl_unsupported
+
+  let configure ?version ?name ?ca_file ?ca_path ?session ?verify () =
+    raise Ssl_unsupported
+END
+end
 
 type +'a io = 'a Deferred.t
 type ic = Reader.t
@@ -28,6 +60,7 @@ type oc = Writer.t
 
 type addr = [
   | `OpenSSL of string * Ipaddr.t * int
+  | `OpenSSL_with_config of string * Ipaddr.t * int * Ssl.config
   | `TCP of Ipaddr.t * int
   | `Unix_domain_socket of string
 ] with sexp
@@ -44,7 +77,18 @@ IFDEF HAVE_ASYNC_SSL THEN
       >>= fun (_, rd, wr) ->
       Conduit_async_ssl.ssl_connect rd wr
 ELSE
-      raise (Failure "SSL unsupported")
+      raise Ssl_unsupported
+END
+  end
+  | `OpenSSL_with_config (host, ip, port, config) -> begin
+IFDEF HAVE_ASYNC_SSL THEN
+      Tcp.connect ?interrupt (Tcp.to_host_and_port (Ipaddr.to_string ip) port)
+      >>= fun (_, rd, wr) ->
+      let open Ssl in
+      match config with | {version; name; ca_file; ca_path; session; verify} ->
+      Conduit_async_ssl.ssl_connect ?version ?name ?ca_file ?ca_path ?session ?verify rd wr
+ELSE
+      raise Ssl_unsupported
 END
   end
   | `Unix_domain_socket file -> begin
@@ -53,27 +97,59 @@ END
       return (rd,wr)
   end
 
-type server = [
+type trust_chain = [
+  | `Ca_file of string
+  | `Ca_path of string
+  | `Search_file_first_then_path of
+      [ `File of string ] *
+      [ `Path of string ]
+] with sexp
+
+type openssl = [
   | `OpenSSL of
-    [ `Crt_file_path of string ] * 
-    [ `Key_file_path of string ] 
+      [ `Crt_file_path of string ] *
+      [ `Key_file_path of string ]
+] with sexp
+
+type requires_async_ssl = [
+  | openssl
+  | `OpenSSL_with_trust_chain of openssl * trust_chain
+] with sexp
+
+type server = [
   | `TCP
+  | requires_async_ssl
 ] with sexp
 
 let serve
-      ?max_connections ?max_pending_connections
+      ?max_connections
       ?buffer_age_limit ?on_handler_error mode where_to_listen handle_request =
   let handle_client handle_request sock rd wr =
     match mode with
     | `TCP -> handle_request sock rd wr
-    | `OpenSSL (`Crt_file_path crt_file, `Key_file_path key_file) ->
+    | #requires_async_ssl as async_ssl ->
 IFDEF HAVE_ASYNC_SSL THEN
-        Conduit_async_ssl.ssl_listen ~crt_file ~key_file rd wr
+        let (crt_file, key_file, ca_file, ca_path) =
+          match async_ssl with
+          | `OpenSSL (`Crt_file_path crt_file, `Key_file_path key_file) ->
+            (crt_file, key_file, None, None)
+          | `OpenSSL_with_trust_chain
+              (`OpenSSL (`Crt_file_path crt, `Key_file_path key), trust_chain) ->
+            let (ca_file, ca_path) =
+              match trust_chain with
+              | `Ca_file ca_file -> (Some ca_file, None)
+              | `Ca_path ca_path -> (None, Some ca_path)
+              | `Search_file_first_then_path (`File ca_file, `Path ca_path) ->
+                (Some ca_file, Some ca_path)
+            in
+            (crt, key, ca_file, ca_path)
+        in
+        Conduit_async_ssl.ssl_listen ?ca_file ?ca_path ~crt_file ~key_file rd wr
         >>= fun (rd,wr) -> handle_request sock rd wr
 ELSE
-        raise (Failure "SSL unsupported in Conduit")
+        raise Ssl_unsupported
 END
     in
-    Tcp.Server.create ?max_connections ?max_pending_connections
+    Tcp.Server.create ?max_connections
       ?buffer_age_limit ?on_handler_error
       where_to_listen (handle_client handle_request)

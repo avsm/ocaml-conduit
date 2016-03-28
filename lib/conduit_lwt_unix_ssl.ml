@@ -25,37 +25,51 @@ let safe_close t =
     (fun _ -> return_unit)
 
 let chans_of_fd sock =
-  let ic = Lwt_ssl.in_channel_of_descr sock in
-  let oc = Lwt_ssl.out_channel_of_descr sock in
+  let shutdown () = Lwt_ssl.ssl_shutdown sock in
+  let close () = Lwt_ssl.close sock in
+  let oc = Lwt_io.make ~mode:Lwt_io.output ~close:shutdown (Lwt_ssl.write_bytes sock) in
+  let ic = Lwt_io.make ~mode:Lwt_io.input ~close (Lwt_ssl.read_bytes sock) in
   ((Lwt_ssl.get_fd sock), ic, oc)
 
 let close (ic, oc) =
-  Lwt.join [ safe_close oc; safe_close ic ]
+  safe_close oc >>= fun () ->
+  safe_close ic
+
+let with_socket sockaddr f =
+  let fd = Lwt_unix.socket (Unix.domain_of_sockaddr sockaddr) Unix.SOCK_STREAM 0 in
+  Lwt.catch (fun () -> f fd) (fun e ->
+      Lwt.catch (fun () -> Lwt_unix.close fd) (fun _ -> return_unit) >>= fun () ->
+      fail e
+    )
 
 module Client = struct
   (* SSL TCP connection *)
-  let t = Ssl.create_context Ssl.TLSv1 Ssl.Client_context
+  let t = Ssl.create_context Ssl.SSLv23 Ssl.Client_context
+  let () = Ssl.disable_protocols t [Ssl.SSLv23]
 
   let connect ?(ctx=t) ?src sa =
-    let fd = Lwt_unix.socket (Unix.domain_of_sockaddr sa) Unix.SOCK_STREAM 0 in
-    let () =
-      match src with
-      | None -> ()
-      | Some src_sa -> Lwt_unix.bind fd src_sa
-    in
-    Lwt_unix.connect fd sa >>= fun () ->
-    Lwt_ssl.ssl_connect fd ctx >>= fun sock ->
-    return (chans_of_fd sock)
+    with_socket sa (fun fd ->
+        let () =
+          match src with
+          | None -> ()
+          | Some src_sa -> Lwt_unix.bind fd src_sa
+        in
+        Lwt_unix.connect fd sa >>= fun () ->
+        Lwt_ssl.ssl_connect fd ctx >>= fun sock ->
+        return (chans_of_fd sock)
+      )
 end
 
 module Server = struct
 
-  let t = Ssl.create_context Ssl.TLSv1 Ssl.Server_context
+  let t = Ssl.create_context Ssl.SSLv23 Ssl.Server_context
+  let () = Ssl.disable_protocols t [Ssl.SSLv23]
 
   let accept ?(ctx=t) fd =
     Lwt_unix.accept fd >>= fun (afd, _) ->
-    Lwt_ssl.ssl_accept afd ctx >>= fun sock ->
-    return (chans_of_fd sock)
+    Lwt.try_bind (fun () -> Lwt_ssl.ssl_accept afd ctx)
+      (fun sock -> return (chans_of_fd sock))
+      (fun exn -> Lwt_unix.close afd >>= fun () -> fail exn)
 
   let listen ?(ctx=t) ?(nconn=20) ?password ~certfile ~keyfile sa =
     let fd = Lwt_unix.socket (Unix.domain_of_sockaddr sa) Unix.SOCK_STREAM 0 in
@@ -73,8 +87,7 @@ module Server = struct
     let events = match timeout with
       | None -> [c]
       | Some t -> [c; (Lwt_unix.sleep (float_of_int t)) ] in
-    let _ = Lwt.pick events >>= fun () -> close (ic,oc) in
-    return ()
+    Lwt.finalize (fun () ->  Lwt.pick events) (fun () -> close (ic,oc)) |> Lwt.ignore_result
 
   let init ?ctx ?(nconn=20) ?password ~certfile ~keyfile
     ?(stop = fst (Lwt.wait ())) ?timeout sa callback =
@@ -89,10 +102,10 @@ module Server = struct
       if not !cont then return_unit
       else (
         Lwt.catch
-          (fun () -> accept s >>= process_accept ~timeout callback)
+          (fun () -> accept ?ctx s >|= process_accept ~timeout callback)
           (function
-            | Lwt.Canceled -> cont := false; return ()
-            | _ -> return ())
+            | Lwt.Canceled -> cont := false; return_unit
+            | _ -> Lwt_unix.yield ())
         >>= loop
       )
     in

@@ -21,33 +21,87 @@
 open Core.Std
 open Async.Std
 
+exception Ssl_unsupported with sexp
+
+IFDEF HAVE_ASYNC_SSL THEN
+open Async_ssl.Std
+END
+
+module Ssl : sig
+  type config
+
+IFDEF HAVE_ASYNC_SSL THEN
+  val verify_certificate :
+    Ssl.Connection.t ->
+    bool Deferred.t
+
+  val configure :
+    ?version:Ssl.Version.t ->
+    ?name:string ->
+    ?ca_file:string ->
+    ?ca_path:string ->
+    ?session:Ssl.Session.t ->
+    ?verify:(Ssl.Connection.t -> bool Deferred.t) ->
+    unit ->
+    config
+ELSE
+  val verify_certificate :
+    'a ->
+    bool Deferred.t
+
+  val configure :
+    ?version:'a ->
+    ?name:string ->
+    ?ca_file:string ->
+    ?ca_path:string ->
+    ?session:'e ->
+    ?verify:'f ->
+    unit ->
+    config
+END
+end
+
 type +'a io = 'a Deferred.t
 type ic = Reader.t
 type oc = Writer.t
 
 type addr = [
   | `OpenSSL of string * Ipaddr.t * int
+  | `OpenSSL_with_config of string * Ipaddr.t * int * Ssl.config
   | `TCP of Ipaddr.t * int
   | `Unix_domain_socket of string
 ] with sexp
 
 val connect : ?interrupt:unit io -> addr -> (ic * oc) io
 
+type trust_chain =
+  [ `Ca_file of string
+  | `Ca_path of string
+  | `Search_file_first_then_path of
+      [ `File of string ] *
+      [ `Path of string ]
+  ] with sexp
+
+type openssl =
+  [ `OpenSSL of
+      [ `Crt_file_path of string ] *
+      [ `Key_file_path of string ]
+  ] with sexp
+
 type server = [
-  | `OpenSSL of
-    [ `Crt_file_path of string ] * 
-    [ `Key_file_path of string ]
+  | openssl
   | `TCP
+  | `OpenSSL_with_trust_chain of
+      (openssl * trust_chain)
 ] with sexp
 
 val serve :
   ?max_connections:int ->
-  ?max_pending_connections:int ->
   ?buffer_age_limit:Writer.buffer_age_limit ->
   ?on_handler_error:[ `Call of ([< Socket.Address.t ] as 'a) -> exn -> unit
     | `Ignore
     | `Raise ] ->
     server ->
     ('a, 'b) Tcp.Where_to_listen.t ->
-    ('a -> ic -> oc -> unit io) -> 
+    ('a -> ic -> oc -> unit io) ->
     ('a, 'b) Tcp.Server.t io

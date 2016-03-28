@@ -53,6 +53,10 @@ module type S = sig
       it into an {{!endp}endpoint}. *)
   type service_fn = string -> svc option io
 
+  val (++): service_fn -> service_fn -> service_fn
+  (** [f ++ g] is the composition of the service functions [f] and
+      [g]. *)
+
   (** [init ?service ?rewrites] will initialize the resolver and return
       a state handler.  The {{!service_fn}service} argument should
       contain the system-specific resolution mechanism for URI schemas.
@@ -72,6 +76,10 @@ module type S = sig
 
   val set_service : f:service_fn -> t -> unit
 
+  val service: t -> service_fn
+  (** [service t] is the function which is called when trying to
+      resolve a hostname with [t]. *)
+
   (** [resolve_uri ?rewrites ~uri t] will use [t] to resolve the
       [uri] into a concrete endpoint.  Any [rewrites] that are passed
       in will be overlayed on the existing rules within the [t]
@@ -86,4 +94,3 @@ end
 module Make (IO : Conduit.IO) : S
   with type svc = service
   and  type 'a io = 'a IO.t
-
